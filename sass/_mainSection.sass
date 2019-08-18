@@ -1,0 +1,67 @@
+.mainSection
+    position: relative
+    height: calc(100vh - 70px)
+    .mainContentSection
+        position: absolute
+        width: calc(100% - 500px)
+        height: 100%
+        perspective: 400px
+        @media screen and (max-width: 1200px)
+            width: calc(100% - 250px)
+        .src
+            position: absolute
+            left: 50%
+            top: 150px
+            transform: translateX(-50%)
+            font-size: 30px
+            @media screen and (max-width: 1600px)
+                font-size: 25px
+                top: 100px
+        .display
+            position: absolute
+            top: 350px
+            left: 50%
+            transform: translateX(-50%)
+            font-size: 100px
+            color: rgb(0, 0, 0)
+            @media screen and (max-width: 1600px)
+                font-size: 80px
+                top: 300px
+        .cubeContainer
+            position: absolute
+            top: 50px
+            left: 50%
+            width: 600px
+            height: 600px
+            transform: translateX(-50%)
+    .adminPanel
+        position: absolute
+        top: 50%
+        left: 50%
+        height: 550px
+        width: 90%       
+        transform: translate(-50%,-50%)
+        border-left: 1px solid black
+        display: grid
+        padding-left: 20px
+        ul
+            list-style-type: none 
+            li 
+                div
+                    height: 80px
+                    width: 200px
+                    background-color: #ddd
+                    margin-bottom: 10px
+                    font-size: 20px
+                    padding: 5px
+                    .userName
+                        
+                    .userID
+                        font-size: 15px
+                    .blockBtn
+                        font-size: 15px
+                        color: red
+                        cursor: pointer
+                        margin-top: 5px
+                        &:hover
+                            color: #ffb3b3

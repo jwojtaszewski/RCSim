@@ -1,0 +1,88 @@
+.statsTimesSection
+    position: absolute
+    height: calc(100vh - 70px)
+    right: 0
+    background-color: #fff
+    width: 500px
+    display: flex
+    flex-direction: column
+    @media screen and (max-width: 1600px)
+        width: 350px
+    @media screen and (max-width: 1200px)
+        width: 250px
+    &::before
+        content: ""
+        position: absolute
+        top: 50%
+        transform: translateY(-50%)
+        left: -10px
+        width: 1px
+        height: calc(100% - 70px)
+        background-color: black
+    .statsTable
+        font-size: 18px
+        flex-basis: 250px
+        font-weight: 600
+        line-height: 20px
+        margin-top: 32px
+        .mainStats
+            margin-left: 10px
+            div
+                span
+                    cursor: pointer
+                    &:hover
+                        background-color: #33ffc1
+    .timeTable
+        flex-basis: 100%
+        overflow: hidden
+        .resetButton
+            position: relative
+            border: 1px solid black
+            background: none
+            left: 8px
+            width: 100px
+            height: 20px
+            cursor: pointer
+            transition: .1s
+            &:hover
+                background-color: #000000
+                color: white
+        .timesContainer
+            position: relative
+            width: 94%
+            max-height: 80%
+            display: flex
+            flex-direction: row
+            flex-wrap: wrap
+            overflow-y: scroll
+            margin-right: 6%
+            .time
+                flex-basis: 50px
+                height: 30px
+                margin: 8px
+                padding: 0 5px
+                font-weight: 600
+                font-size: 18px
+                background-color: #00cc99
+                color: black
+                line-height: 30px
+                text-align: center
+                cursor: pointer
+                &:hover
+                    background-color: #33ffcc
+            .timeRedColor
+                background-color: #f65555
+                &:hover
+                    background-color: #f8a0a0
+            .timeYellowColor
+                background-color: #e6e600
+                &:hover
+                    background-color: #ffff99
+
+
+
+        
+
+        
+
+

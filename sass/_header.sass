@@ -1,0 +1,81 @@
+header
+    position: relative
+    height: 70px
+    display: flex
+    flex-direction: row
+    &::after
+        content: ""
+        background-color: #000000
+        position: absolute
+        bottom: 0
+        width: calc(100% - 80px)
+        height: 1px
+        transform: translateX(40px)
+    .menu
+        flex-basis: 450px
+        .aboutBtn
+            +btnStyles()
+            +btnHover()
+            left: 120px
+        .timesBtn
+            +btnStyles()
+            +btnHover()
+            left: 300px
+    .cubeIcon
+        flex-grow: 1
+        .cb
+            +cubePic()
+            animation: shakes 6s linear infinite
+        .cbSG
+            +cubePic()
+            display: none
+        .cbSR
+            +cubePic()
+            display: none
+        .cbSY
+            +cubePic()
+            display: none
+    .profile
+        flex-basis: 450px
+        position: relative
+        .loginBtn
+            +btnStyles()
+            +btnHover()
+            right: 300px
+        .registBtn
+            +btnStyles()
+            +btnHover()
+            right: 120px
+        &__username
+            position: absolute
+            line-height: 70px
+            right: 35%
+            font-size: 20px
+            font-weight: 700
+            float: left
+        &__avatar
+            position: absolute
+            top: 50%
+            left: 70%
+            transform: translateY(-50%)
+            height: 50px
+            width: 50px
+            background-color: royalblue
+            border-radius: 50%
+        &__logout
+            position: absolute
+            height: 20px
+            top: 57%
+            right: 35%
+            font-size: 12px
+            line-height: 20px
+            cursor: pointer
+            text-decoration: none
+            border: none
+            background-color: rgba(255, 255, 255, 0)
+            color: red
+            overflow: hidden
+            &:hover
+                color: #ffb3b3
+
+
