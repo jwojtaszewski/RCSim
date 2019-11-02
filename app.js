@@ -20,6 +20,8 @@ const deleteTime = require("./deleteTime.js");
 const deleteAllTimes = require("./deleteAllTimes.js");
 const getAllUsersData = require("./getAllUsersData.js");
 
+let PORT = process.env.PORT || 3000;
+
 
 app.set("view engine", "ejs");
 
@@ -151,4 +153,4 @@ app.put("/blockUser", (req, res) => {
 
 });
 
-app.listen(3000);
+app.listen(PORT);
