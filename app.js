@@ -35,7 +35,9 @@ app.use(bodyParser.json());
 
 
 
+app.use("/three", express.static(__dirname + '/three'));
 app.use("/public", express.static(__dirname + '/public'));
+
 
 app.get('/', function (request, response) {
     response.sendFile(path.join(__dirname + '/timer.html'));
