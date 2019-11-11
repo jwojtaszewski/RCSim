@@ -14,7 +14,11 @@
 
   // Create a WebGL renderer, camera
   // and a scene
-  const renderer = new THREE.WebGLRenderer();
+  const renderer = new THREE.WebGLRenderer({
+      alpha: true
+  });
+  //   renderer.setClearColorHex(0xffffff, 1);
+  //   renderer.setClearColor(0xffffff, 0);
   const camera =
       new THREE.PerspectiveCamera(
           VIEW_ANGLE,
@@ -60,53 +64,81 @@
   controls.maxDistance = 450;
   controls.maxPolarAngle = Math.PI;
 
+  let BOX = new THREE.Object3D();
+  BOX.rotation.x = Math.PI / 6;
+
+  refreshView = (piecesTable) => {
+      piecesTable.forEach((el) => {
+          BOX.add(el);
+      })
+      scene.add(BOX);
+  }
+
   //------------------cube----------------------------
   const buildCube = new BuildCube();
   let piecesTable = buildCube.getCube();
   const movement = new Movement();
 
-  piecesTable.forEach((el) => {
-      scene.add(el);
-  })
+  refreshView(piecesTable);
 
   let x = 0;
   let y = 0;
 
   window.addEventListener("keydown", (e) => {
-      const group = new THREE.Group()
+
       if (e.keyCode == 74) {
-          console.log(piecesTable[0].getWorldPosition(piecesTable[0].position))
-          console.log(piecesTable[1].getWorldPosition(piecesTable[1].position))
-          console.log(piecesTable[2].getWorldPosition(piecesTable[2].position))
-          console.log(piecesTable[3].getWorldPosition(piecesTable[3].position))
-
-          group.add(piecesTable[0]);
-          group.add(piecesTable[1]);
-          group.add(piecesTable[2]);
-          group.add(piecesTable[3]);
-          scene.add(group);
-          //   buildCube.doUMove()
-
-          y += -Math.PI / 2;
-          group.rotation.y = y;
-
+          piecesTable = [...buildCube.doUMove(piecesTable)];
       }
-  })
-  window.addEventListener("keydown", (e) => {
-      const group = new THREE.Group()
+
       if (e.keyCode == 73) {
+          piecesTable = [...buildCube.doRMove(piecesTable)];
+      }
 
-          group.add(piecesTable[2]);
-          group.add(piecesTable[3]);
-          group.add(piecesTable[6]);
-          group.add(piecesTable[7]);
-          scene.add(group);
-          //   buildCube.doUMove()
+      if (e.keyCode == 75) {
+          piecesTable = [...buildCube.doRPrimeMove(piecesTable)];
+      }
 
-          x += -Math.PI / 2;
-          group.rotation.x = x;
+      if (e.keyCode == 68) {
+          piecesTable = [...buildCube.doLMove(piecesTable)];
+      }
+
+      if (e.keyCode == 69) {
+          piecesTable = [...buildCube.doLPrimeMove(piecesTable)];
+      }
+
+      if (e.keyCode == 70) {
+          piecesTable = [...buildCube.doUPrimeMove(piecesTable)];
+      }
+
+      if (e.keyCode == 71) {
+          piecesTable = [...buildCube.doFPrimeMove(piecesTable)];
+      }
+
+      if (e.keyCode == 72) {
+          piecesTable = [...buildCube.doFMove(piecesTable)];
+      }
+
+      if (e.keyCode == 83) {
+          piecesTable = [...buildCube.doDMove(piecesTable)];
+      }
+
+      if (e.keyCode == 76) {
+          piecesTable = [...buildCube.doDPrimeMove(piecesTable)];
+      }
+
+      if (e.keyCode == 186) {
+          piecesTable = [...buildCube.doYRotate(piecesTable)];
+      }
+
+      if (e.keyCode == 65) {
+          piecesTable = [...buildCube.doYPrimeRotate(piecesTable)];
+      }
+
+      if (e.keyCode == 27) {
+          piecesTable = [...buildCube.resetCube(piecesTable)];
       }
   })
+
 
   //----------------------------------------------
   function update() {

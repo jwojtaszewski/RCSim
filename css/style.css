@@ -343,6 +343,7 @@ header .profile__logout:hover {
           transform: translateX(-50%);
   font-size: 100px;
   color: black;
+  visibility: hidden;
 }
 
 @media screen and (max-width: 1600px) {
