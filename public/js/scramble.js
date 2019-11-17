@@ -23,12 +23,10 @@ function generateScramble() {
 
     }
 
-    let tmpScrambleSpan = document.createElement("span"); // tworzy spana
-    let tmpScramble = document.createTextNode(scramble); //tworzy text z czasu
-    tmpScrambleSpan.appendChild(tmpScramble); //wkłada do spana text
-    section.appendChild(tmpScrambleSpan); // wkłada do klasy .times spana
-    tmpScrambleSpan.classList.add("src");
+    return scramble;
 }
+
+
 
 generateScramble();
 

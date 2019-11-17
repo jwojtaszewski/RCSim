@@ -87,57 +87,117 @@
   window.addEventListener("keydown", (e) => {
 
       if (e.keyCode == 74) {
-          piecesTable = [...buildCube.doUMove(piecesTable)];
+          piecesTable = [...movement.doUMove(piecesTable)];
       }
 
       if (e.keyCode == 73) {
-          piecesTable = [...buildCube.doRMove(piecesTable)];
+          piecesTable = [...movement.doRMove(piecesTable)];
       }
 
       if (e.keyCode == 75) {
-          piecesTable = [...buildCube.doRPrimeMove(piecesTable)];
+          piecesTable = [...movement.doRPrimeMove(piecesTable)];
       }
 
       if (e.keyCode == 68) {
-          piecesTable = [...buildCube.doLMove(piecesTable)];
+          piecesTable = [...movement.doLMove(piecesTable)];
       }
 
       if (e.keyCode == 69) {
-          piecesTable = [...buildCube.doLPrimeMove(piecesTable)];
+          piecesTable = [...movement.doLPrimeMove(piecesTable)];
       }
 
       if (e.keyCode == 70) {
-          piecesTable = [...buildCube.doUPrimeMove(piecesTable)];
+          piecesTable = [...movement.doUPrimeMove(piecesTable)];
       }
 
       if (e.keyCode == 71) {
-          piecesTable = [...buildCube.doFPrimeMove(piecesTable)];
+          piecesTable = [...movement.doFPrimeMove(piecesTable)];
       }
 
       if (e.keyCode == 72) {
-          piecesTable = [...buildCube.doFMove(piecesTable)];
+          piecesTable = [...movement.doFMove(piecesTable)];
       }
 
       if (e.keyCode == 83) {
-          piecesTable = [...buildCube.doDMove(piecesTable)];
+          piecesTable = [...movement.doDMove(piecesTable)];
       }
 
       if (e.keyCode == 76) {
-          piecesTable = [...buildCube.doDPrimeMove(piecesTable)];
+          piecesTable = [...movement.doDPrimeMove(piecesTable)];
       }
 
       if (e.keyCode == 186) {
-          piecesTable = [...buildCube.doYRotate(piecesTable)];
+          piecesTable = [...movement.doYRotate(piecesTable)];
       }
 
       if (e.keyCode == 65) {
-          piecesTable = [...buildCube.doYPrimeRotate(piecesTable)];
+          piecesTable = [...movement.doYPrimeRotate(piecesTable)];
       }
 
       if (e.keyCode == 27) {
-          piecesTable = [...buildCube.resetCube(piecesTable)];
+          piecesTable = [...buildCube.getCube()];
+      }
+
+      if (e.keyCode == 87) {
+          piecesTable = [...movement.doBMove(piecesTable)];
+      }
+
+      if (e.keyCode == 79) {
+          piecesTable = [...movement.doBPrimeMove(piecesTable)];
+      }
+
+      if (e.keyCode == 84) {
+          piecesTable = [...movement.doXRotate(piecesTable)];
+      }
+
+      if (e.keyCode == 66) {
+          piecesTable = [...movement.doXPrimeRotate(piecesTable)];
       }
   })
+
+  scrambleCube = (scramble) => {
+      const moveArray = scramble.split(' ');
+      moveArray.forEach((el) => {
+          switch (el) {
+              case 'U':
+                  piecesTable = [...movement.doUMove(piecesTable)];
+                  break;
+              case 'U\'':
+                  piecesTable = [...movement.doUPrimeMove(piecesTable)];
+                  break;
+              case 'R':
+                  piecesTable = [...movement.doRMove(piecesTable)];
+                  break;
+              case 'R\'':
+                  piecesTable = [...movement.doRPrimeMove(piecesTable)];
+                  break;
+              case 'L':
+                  piecesTable = [...movement.doLMove(piecesTable)];
+                  break;
+              case 'L\'':
+                  piecesTable = [...movement.doLPrimeMove(piecesTable)];
+                  break;
+              case 'F':
+                  piecesTable = [...movement.doFMove(piecesTable)];
+                  break;
+              case 'F\'':
+                  piecesTable = [...movement.doFPrimeMove(piecesTable)];
+                  break;
+              case 'D':
+                  piecesTable = [...movement.doDMove(piecesTable)];
+                  break;
+              case 'D\'':
+                  piecesTable = [...movement.doDPrimeMove(piecesTable)];
+                  break;
+              case 'B':
+                  piecesTable = [...movement.doBMove(piecesTable)];
+                  break;
+              case 'B\'':
+                  piecesTable = [...movement.doBPrimeMove(piecesTable)];
+                  break;
+          }
+      })
+  }
 
 
   //----------------------------------------------

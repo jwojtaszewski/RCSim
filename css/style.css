@@ -338,12 +338,11 @@ header .profile__logout:hover {
 .mainSection .mainContentSection .display {
   position: absolute;
   top: 350px;
-  left: 50%;
+  left: 20%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
   font-size: 100px;
   color: black;
-  visibility: hidden;
 }
 
 @media screen and (max-width: 1600px) {
