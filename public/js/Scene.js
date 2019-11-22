@@ -69,7 +69,7 @@
 
   refreshView = (piecesTable) => {
       piecesTable.forEach((el) => {
-          BOX.add(el);
+          BOX.add(el.cube);
       })
       scene.add(BOX);
   }
@@ -134,7 +134,7 @@
           piecesTable = [...movement.doYPrimeRotate(piecesTable)];
       }
 
-      if (e.keyCode == 27) {
+      if (e.keyCode == 28) {
           piecesTable = [...buildCube.getCube()];
       }
 
@@ -153,6 +153,7 @@
       if (e.keyCode == 66) {
           piecesTable = [...movement.doXPrimeRotate(piecesTable)];
       }
+      console.log(piecesTable);
   })
 
   scrambleCube = (scramble) => {
@@ -196,7 +197,17 @@
                   piecesTable = [...movement.doBPrimeMove(piecesTable)];
                   break;
           }
+          console.log(piecesTable);
       })
+  }
+
+  isCubeSolved = () => {
+      return piecesTable[0].cube.name === 'UFL' && piecesTable[1].cube.name === 'UBL' && piecesTable[2].cube.name === 'UBR' &&
+          piecesTable[3].cube.name === 'UFR' && piecesTable[4].cube.name === 'DFL' && piecesTable[5].cube.name === 'DBL' &&
+          piecesTable[6].cube.name === 'DBR' && piecesTable[7].cube.name === 'DFR' && piecesTable[0].orientation === 0 &&
+          piecesTable[1].orientation === 0 && piecesTable[2].orientation === 0 && piecesTable[3].orientation === 0 &&
+          piecesTable[4].orientation === 0 && piecesTable[5].orientation === 0 && piecesTable[6].orientation === 0 &&
+          piecesTable[7].orientation === 0;
   }
 
 

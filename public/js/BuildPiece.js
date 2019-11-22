@@ -1,7 +1,7 @@
 class BuildPiece {
     constructor() {}
 
-    makeCorner(color) {
+    makeCorner(color, name) {
 
         const width = 30;
         const height = 30;
@@ -33,6 +33,8 @@ class BuildPiece {
         plane[2].rotation.x = Math.PI / 2;
 
         plane[2].rotation.y = Math.PI / 2;
+
+        corner.name = name;
 
         return corner
     }

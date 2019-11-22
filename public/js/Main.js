@@ -55,6 +55,14 @@ class Main {
                 this.isInspection = false;
                 this.isTimeRun = true;
             }
+
+            if (e.keyCode == "27" && this.isTimeRun) {
+                if (isCubeSolved()) {
+                    this.timer.stop();
+                    this.updateTimes.saveTime(this.timer.getTime());
+                    this.insertToDB();
+                }
+            }
         });
 
         window.addEventListener("click", (e) => { //wykrywanie nacisniętego czasu

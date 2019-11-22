@@ -10,8 +10,14 @@ class Movement {
         pieces[2] = pieces[1];
         pieces[1] = tab[0];
 
+        pieces[0].orientation = pieces[0].orientation
+        pieces[1].orientation = pieces[1].orientation
+        pieces[2].orientation = pieces[2].orientation
+        pieces[3].orientation = pieces[3].orientation
+
         pieces = this.poisitioning(pieces);
         pieces = this.rotatePiece(pieces, 'U', -Math.PI / 2);
+
         return pieces;
     }
 
@@ -23,6 +29,11 @@ class Movement {
         pieces[7] = pieces[6]
         pieces[6] = pieces[2]
         pieces[2] = tab[0]
+
+        pieces[3].orientation = (pieces[3].orientation + 1) % 3
+        pieces[7].orientation = (pieces[7].orientation + 2) % 3
+        pieces[6].orientation = (pieces[6].orientation + 1) % 3
+        pieces[2].orientation = (pieces[2].orientation + 2) % 3
 
         pieces = this.poisitioning(pieces);
         pieces = this.rotatePiece(pieces, 'R', -Math.PI / 2);
@@ -38,6 +49,11 @@ class Movement {
         pieces[2] = pieces[6]
         pieces[6] = pieces[7]
         pieces[7] = tab[0]
+
+        pieces[3].orientation = (pieces[3].orientation + 1) % 3
+        pieces[7].orientation = (pieces[7].orientation + 2) % 3
+        pieces[6].orientation = (pieces[6].orientation + 1) % 3
+        pieces[2].orientation = (pieces[2].orientation + 2) % 3
 
         pieces = this.poisitioning(pieces);
         pieces = this.rotatePiece(pieces, 'R', Math.PI / 2);
@@ -67,6 +83,11 @@ class Movement {
         pieces[5] = pieces[4];
         pieces[4] = tab[0];
 
+        pieces[0].orientation = (pieces[0].orientation + 2) % 3
+        pieces[1].orientation = (pieces[1].orientation + 1) % 3
+        pieces[4].orientation = (pieces[4].orientation + 1) % 3
+        pieces[5].orientation = (pieces[5].orientation + 2) % 3
+
         pieces = this.poisitioning(pieces);
         pieces = this.rotatePiece(pieces, 'L', Math.PI / 2);
         return pieces;
@@ -80,6 +101,11 @@ class Movement {
         pieces[4] = pieces[5];
         pieces[5] = pieces[1];
         pieces[1] = tab[0];
+
+        pieces[0].orientation = (pieces[0].orientation + 2) % 3
+        pieces[1].orientation = (pieces[1].orientation + 1) % 3
+        pieces[4].orientation = (pieces[4].orientation + 1) % 3
+        pieces[5].orientation = (pieces[5].orientation + 2) % 3
 
         pieces = this.poisitioning(pieces);
         pieces = this.rotatePiece(pieces, 'L', -Math.PI / 2);
@@ -96,6 +122,11 @@ class Movement {
         pieces[7] = pieces[3];
         pieces[3] = tab[0];
 
+        pieces[0].orientation = (pieces[0].orientation + 1) % 3
+        pieces[3].orientation = (pieces[3].orientation + 2) % 3
+        pieces[4].orientation = (pieces[4].orientation + 2) % 3
+        pieces[7].orientation = (pieces[7].orientation + 1) % 3
+
         pieces = this.poisitioning(pieces);
         pieces = this.rotatePiece(pieces, 'F', -Math.PI / 2);
         return pieces;
@@ -109,6 +140,11 @@ class Movement {
         pieces[3] = pieces[7];
         pieces[7] = pieces[4];
         pieces[4] = tab[0];
+
+        pieces[0].orientation = (pieces[0].orientation + 1) % 3
+        pieces[3].orientation = (pieces[3].orientation + 2) % 3
+        pieces[4].orientation = (pieces[4].orientation + 2) % 3
+        pieces[7].orientation = (pieces[7].orientation + 1) % 3
 
         pieces = this.poisitioning(pieces);
         pieces = this.rotatePiece(pieces, 'F', Math.PI / 2);
@@ -154,6 +190,11 @@ class Movement {
         pieces[6] = pieces[5];
         pieces[5] = tab[0];
 
+        pieces[1].orientation = (pieces[1].orientation + 2) % 3
+        pieces[2].orientation = (pieces[2].orientation + 1) % 3
+        pieces[5].orientation = (pieces[5].orientation + 1) % 3
+        pieces[6].orientation = (pieces[6].orientation + 2) % 3
+
         pieces = this.poisitioning(pieces);
         pieces = this.rotatePiece(pieces, 'B', Math.PI / 2);
         return pieces;
@@ -167,6 +208,11 @@ class Movement {
         pieces[5] = pieces[6];
         pieces[6] = pieces[2];
         pieces[2] = tab[0];
+
+        pieces[1].orientation = (pieces[1].orientation + 2) % 3
+        pieces[2].orientation = (pieces[2].orientation + 1) % 3
+        pieces[5].orientation = (pieces[5].orientation + 1) % 3
+        pieces[6].orientation = (pieces[6].orientation + 2) % 3
 
         pieces = this.poisitioning(pieces);
         pieces = this.rotatePiece(pieces, 'B', -Math.PI / 2);
@@ -253,33 +299,42 @@ class Movement {
         }
 
         const quaternion = new THREE.Quaternion().setFromAxisAngle(vector, angle);
-        let qua0 = pieces[el1].quaternion;
-        let qua1 = pieces[el2].quaternion;
-        let qua2 = pieces[el3].quaternion;
-        let qua3 = pieces[el4].quaternion;
+        let qua0 = pieces[el1].cube.quaternion;
+        let qua1 = pieces[el2].cube.quaternion;
+        let qua2 = pieces[el3].cube.quaternion;
+        let qua3 = pieces[el4].cube.quaternion;
         qua0.multiplyQuaternions(quaternion, qua0);
         qua1.multiplyQuaternions(quaternion, qua1);
         qua2.multiplyQuaternions(quaternion, qua2);
         qua3.multiplyQuaternions(quaternion, qua3);
 
-        pieces[el1]._dirtyPosition = true;
-        pieces[el2]._dirtyPosition = true;
-        pieces[el3]._dirtyPosition = true;
-        pieces[el4]._dirtyPosition = true;
+        pieces[el1].cube._dirtyPosition = true;
+        pieces[el2].cube._dirtyPosition = true;
+        pieces[el3].cube._dirtyPosition = true;
+        pieces[el4].cube._dirtyPosition = true;
 
         return pieces;
     }
 
-    poisitioning(pieces) {
-        pieces[1].position.set(-20, 20, -20);
-        pieces[2].position.set(20, 20, -20);
-        pieces[5].position.set(-20, -20, -20);
-        pieces[6].position.set(20, -20, -20);
+    // movePiecesInArray(pieces, [p1,p2,p3,p4]){
+    //     let tab = []
+    //     tab[0] = pieces[p1];
+    //     pieces[p1] = pieces[p2];
+    //     pieces[p2] = pieces[p3];
+    //     pieces[p3] = pieces[p4];
+    //     pieces[p4] = tab[0];
+    // }
 
-        pieces[0].position.set(-20, 20, 20);
-        pieces[3].position.set(20, 20, 20);
-        pieces[4].position.set(-20, -20, 20);
-        pieces[7].position.set(20, -20, 20);
+    poisitioning(pieces) {
+        pieces[1].cube.position.set(-20, 20, -20);
+        pieces[2].cube.position.set(20, 20, -20);
+        pieces[5].cube.position.set(-20, -20, -20);
+        pieces[6].cube.position.set(20, -20, -20);
+
+        pieces[0].cube.position.set(-20, 20, 20);
+        pieces[3].cube.position.set(20, 20, 20);
+        pieces[4].cube.position.set(-20, -20, 20);
+        pieces[7].cube.position.set(20, -20, 20);
 
         return pieces;
     }
