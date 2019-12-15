@@ -8,6 +8,8 @@
   const NEAR = 0.1;
   const FAR = 1000;
 
+  const clock = new THREE.Clock(true);
+  let timeElapsed
   // Get the DOM element to attach to
   const container =
       document.querySelector('.cubeContainer');
@@ -64,159 +66,237 @@
   controls.maxDistance = 450;
   controls.maxPolarAngle = Math.PI;
 
+  //-------------------------------cube-------------------------------------------
+
   let BOX = new THREE.Object3D();
-  BOX.rotation.x = Math.PI / 6;
+  //   BOX.rotation.x = Math.PI / 5;
 
   refreshView = (piecesTable) => {
-      piecesTable.forEach((el) => {
+      piecesTable.corners.forEach((el) => {
           BOX.add(el.cube);
+      })
+      piecesTable.edges.forEach((el) => {
+          BOX.add(el.cube);
+      })
+      piecesTable.centers.forEach((el) => {
+          BOX.add(el);
       })
       scene.add(BOX);
   }
 
-  //------------------cube----------------------------
+  //----------------------------------------------
   const buildCube = new BuildCube();
-  let piecesTable = buildCube.getCube();
+  let piecesTable = {};
+  piecesTable.corners = buildCube.getCornerArray();
+  piecesTable.edges = buildCube.getEdgeArray();
+  piecesTable.centers = buildCube.getCenters();
   const movement = new Movement();
+
+  let group = new THREE.Group();
+  let groupR = new THREE.Group();
+  let isMove = false;
+  let moveLetter;
+
+  let movesFifo = [];
 
   refreshView(piecesTable);
 
-  let x = 0;
-  let y = 0;
-
   window.addEventListener("keydown", (e) => {
-
-      if (e.keyCode == 74) {
-          piecesTable = [...movement.doUMove(piecesTable)];
-      }
-
-      if (e.keyCode == 73) {
-          piecesTable = [...movement.doRMove(piecesTable)];
-      }
-
-      if (e.keyCode == 75) {
-          piecesTable = [...movement.doRPrimeMove(piecesTable)];
-      }
-
-      if (e.keyCode == 68) {
-          piecesTable = [...movement.doLMove(piecesTable)];
-      }
-
-      if (e.keyCode == 69) {
-          piecesTable = [...movement.doLPrimeMove(piecesTable)];
-      }
-
-      if (e.keyCode == 70) {
-          piecesTable = [...movement.doUPrimeMove(piecesTable)];
-      }
-
-      if (e.keyCode == 71) {
-          piecesTable = [...movement.doFPrimeMove(piecesTable)];
-      }
-
-      if (e.keyCode == 72) {
-          piecesTable = [...movement.doFMove(piecesTable)];
-      }
-
-      if (e.keyCode == 83) {
-          piecesTable = [...movement.doDMove(piecesTable)];
-      }
-
-      if (e.keyCode == 76) {
-          piecesTable = [...movement.doDPrimeMove(piecesTable)];
-      }
-
-      if (e.keyCode == 186) {
-          piecesTable = [...movement.doYRotate(piecesTable)];
-      }
-
-      if (e.keyCode == 65) {
-          piecesTable = [...movement.doYPrimeRotate(piecesTable)];
-      }
-
-      if (e.keyCode == 28) {
-          piecesTable = [...buildCube.getCube()];
-      }
-
-      if (e.keyCode == 87) {
-          piecesTable = [...movement.doBMove(piecesTable)];
-      }
-
-      if (e.keyCode == 79) {
-          piecesTable = [...movement.doBPrimeMove(piecesTable)];
-      }
-
-      if (e.keyCode == 84) {
-          piecesTable = [...movement.doXRotate(piecesTable)];
-      }
-
-      if (e.keyCode == 66) {
-          piecesTable = [...movement.doXPrimeRotate(piecesTable)];
-      }
-      console.log(piecesTable);
+      movesFifo = [...movesFifo, KeyControl.control(e)];
   })
 
   scrambleCube = (scramble) => {
-      const moveArray = scramble.split(' ');
-      moveArray.forEach((el) => {
-          switch (el) {
-              case 'U':
-                  piecesTable = [...movement.doUMove(piecesTable)];
-                  break;
-              case 'U\'':
-                  piecesTable = [...movement.doUPrimeMove(piecesTable)];
-                  break;
-              case 'R':
-                  piecesTable = [...movement.doRMove(piecesTable)];
-                  break;
-              case 'R\'':
-                  piecesTable = [...movement.doRPrimeMove(piecesTable)];
-                  break;
-              case 'L':
-                  piecesTable = [...movement.doLMove(piecesTable)];
-                  break;
-              case 'L\'':
-                  piecesTable = [...movement.doLPrimeMove(piecesTable)];
-                  break;
-              case 'F':
-                  piecesTable = [...movement.doFMove(piecesTable)];
-                  break;
-              case 'F\'':
-                  piecesTable = [...movement.doFPrimeMove(piecesTable)];
-                  break;
-              case 'D':
-                  piecesTable = [...movement.doDMove(piecesTable)];
-                  break;
-              case 'D\'':
-                  piecesTable = [...movement.doDPrimeMove(piecesTable)];
-                  break;
-              case 'B':
-                  piecesTable = [...movement.doBMove(piecesTable)];
-                  break;
-              case 'B\'':
-                  piecesTable = [...movement.doBPrimeMove(piecesTable)];
-                  break;
-          }
-          console.log(piecesTable);
-      })
+      piecesTable = scrCube(scramble, piecesTable);
   }
 
   isCubeSolved = () => {
-      return piecesTable[0].cube.name === 'UFL' && piecesTable[1].cube.name === 'UBL' && piecesTable[2].cube.name === 'UBR' &&
-          piecesTable[3].cube.name === 'UFR' && piecesTable[4].cube.name === 'DFL' && piecesTable[5].cube.name === 'DBL' &&
-          piecesTable[6].cube.name === 'DBR' && piecesTable[7].cube.name === 'DFR' && piecesTable[0].orientation === 0 &&
-          piecesTable[1].orientation === 0 && piecesTable[2].orientation === 0 && piecesTable[3].orientation === 0 &&
-          piecesTable[4].orientation === 0 && piecesTable[5].orientation === 0 && piecesTable[6].orientation === 0 &&
-          piecesTable[7].orientation === 0;
+      return checkOrder(piecesTable) && checkOrientation(piecesTable);
+  }
+
+  checkOrientation = (pieces) => {
+      return pieces.corners.every((el) => el.orientation === 0) && pieces.edges.every((el) => el.orientation === 0);
+  }
+
+  const cornersNaturalOrder = ['UFL', 'UBL', 'UBR', 'UFR', 'DFL', 'DBL', 'DBR', 'DFR'];
+  const edgesNaturalOrder = ['UF', 'UL', 'UB', 'UR', 'FR', 'FL', 'BL', 'BR', 'DF', 'DL', 'DB', 'DR'];
+
+  checkOrder = (pieces) => {
+      return pieces.corners.every((el, index) => el.cube.name === cornersNaturalOrder[index]) && pieces.edges.every((el, index) => el.cube.name === edgesNaturalOrder[index]);
   }
 
 
+  let i = 0;
   //----------------------------------------------
+
+  addPiecesToGroup = (tab) => {
+      let group = new THREE.Group();
+      group.add(piecesTable.corners[tab[0]].cube);
+      group.add(piecesTable.corners[tab[1]].cube);
+      group.add(piecesTable.corners[tab[2]].cube);
+      group.add(piecesTable.corners[tab[3]].cube);
+      group.add(piecesTable.edges[tab[4]].cube);
+      group.add(piecesTable.edges[tab[5]].cube);
+      group.add(piecesTable.edges[tab[6]].cube);
+      group.add(piecesTable.edges[tab[7]].cube);
+      scene.add(group);
+      return group;
+  }
+
   function update() {
       // Draw!
       renderer.render(scene, camera);
       controls.update();
+      timeElapsed = clock.getDelta();
 
+      if (movesFifo != null && !isMove) {
+          moveLetter = movesFifo.shift();
+          if (moveLetter === 'R') {
+              group = addPiecesToGroup([2, 3, 6, 7, 3, 4, 7, 11]);
+          } else if (moveLetter === 'U') {
+              group = addPiecesToGroup([0, 3, 2, 1, 0, 3, 2, 1]);
+          } else if (moveLetter === 'R\'') {
+              group = addPiecesToGroup([2, 3, 6, 7, 3, 4, 7, 11]);
+          } else if (moveLetter === 'U\'') {
+              group = addPiecesToGroup([0, 3, 2, 1, 0, 3, 2, 1]);
+          } else if (moveLetter === 'L') {
+              group = addPiecesToGroup([0, 1, 5, 4, 1, 6, 9, 5]);
+          } else if (moveLetter === 'L\'') {
+              group = addPiecesToGroup([0, 1, 5, 4, 1, 6, 9, 5]);
+          } else if (moveLetter === 'F') {
+              group = addPiecesToGroup([0, 4, 7, 3, 0, 5, 8, 4]);
+          } else if (moveLetter === 'F\'') {
+              group = addPiecesToGroup([0, 4, 7, 3, 0, 5, 8, 4]);
+          } else if (moveLetter === 'D') {
+              group = addPiecesToGroup([4, 5, 6, 7, 8, 9, 10, 11]);
+          } else if (moveLetter === 'D\'') {
+              group = addPiecesToGroup([4, 5, 6, 7, 8, 9, 10, 11]);
+          } else if (moveLetter === 'B\'') {
+              group = addPiecesToGroup([1, 2, 6, 5, 2, 7, 10, 6]);
+          } else if (moveLetter === 'B\'') {
+              group = addPiecesToGroup([1, 2, 6, 5, 2, 7, 10, 6]);
+          }
+      }
+
+      switch (moveLetter) {
+          case 'U':
+              i++
+              isMove = true;
+              if (i % 6 !== 0) group.rotation.y -= Math.PI / 10;
+              else {
+                  group.rotation.y += Math.PI / 2
+                  movement.doUMove(piecesTable)
+                      .then(result => {
+                          piecesTable = result;
+                          isMove = false;
+                      })
+              }
+              break;
+          case 'U\'':
+              i++
+              isMove = true;
+              if (i % 6 !== 0) group.rotation.y += Math.PI / 10;
+              else {
+                  group.rotation.y -= Math.PI / 2
+                  movement.doUPrimeMove(piecesTable)
+                      .then(result => {
+                          piecesTable = result;
+                          isMove = false;
+                      })
+              }
+              break;
+          case 'R':
+              i++
+              isMove = true;
+              if (i % 6 !== 0) group.rotation.x -= Math.PI / 10;
+              else {
+                  group.rotation.x += Math.PI / 2
+                  movement.doRMove(piecesTable)
+                      .then(result => {
+                          piecesTable = result;
+                          isMove = false;
+                      })
+              }
+              break;
+          case 'R\'':
+              i++
+              isMove = true;
+              if (i % 6 !== 0) group.rotation.x += Math.PI / 10;
+              else {
+                  group.rotation.x -= Math.PI / 2
+                  movement.doRPrimeMove(piecesTable)
+                      .then(result => {
+                          piecesTable = result;
+                          isMove = false;
+                      })
+              }
+              break;
+          case 'L':
+              i++
+              isMove = true;
+              if (i % 6 !== 0) group.rotation.x += Math.PI / 10;
+              else {
+                  group.rotation.x -= Math.PI / 2
+                  movement.doLMove(piecesTable)
+                      .then(result => {
+                          piecesTable = result;
+                          isMove = false;
+                      })
+              }
+              break;
+          case 'L\'':
+              i++
+              isMove = true;
+              if (i % 6 !== 0) group.rotation.x -= Math.PI / 10;
+              else {
+                  group.rotation.x += Math.PI / 2
+                  movement.doLPrimeMove(piecesTable)
+                      .then(result => {
+                          piecesTable = result;
+                          isMove = false;
+                      })
+              }
+              break;
+          case 'F':
+              i++
+              isMove = true;
+              if (i % 6 !== 0) group.rotation.z -= Math.PI / 10;
+              else {
+                  group.rotation.z += Math.PI / 2
+                  movement.doFMove(piecesTable)
+                      .then(result => {
+                          piecesTable = result;
+                          isMove = false;
+                      })
+              }
+              break;
+          case 'F\'':
+              i++
+              isMove = true;
+              if (i % 6 !== 0) group.rotation.z += Math.PI / 10;
+              else {
+                  group.rotation.z -= Math.PI / 2
+                  movement.doFPrimeMove(piecesTable)
+                      .then(result => {
+                          piecesTable = result;
+                          isMove = false;
+                      })
+              }
+              break;
+          case 'D':
+              piecesTable = movement.doDMove(piecesTable);
+              break;
+          case 'D\'':
+              piecesTable = movement.doDPrimeMove(piecesTable);
+              break;
+          case 'B':
+              piecesTable = movement.doBMove(piecesTable);
+              break;
+          case 'B\'':
+              piecesTable = movement.doBPrimeMove(piecesTable);
+              break;
+      }
+
+      //   }
 
       // Schedule the next frame.
       requestAnimationFrame(update);

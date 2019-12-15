@@ -44,23 +44,18 @@ class Main {
                 this.isInspection = true;
             }
 
-            // if (e.keyCode == "32") {
-            //     this.timer.stop();
-            //     this.updateTimes.saveTime(this.timer.getTime());
-            //     this.insertToDB();
-            // }
-
             if (this.startKeysArray.includes(e.keyCode) && this.isInspection) {
                 this.timer.start();
                 this.isInspection = false;
                 this.isTimeRun = true;
             }
 
-            if (e.keyCode == "27" && this.isTimeRun) {
+            if (this.isTimeRun) {
                 if (isCubeSolved()) {
                     this.timer.stop();
                     this.updateTimes.saveTime(this.timer.getTime());
                     this.insertToDB();
+                    this.isTimeRun = false;
                 }
             }
         });

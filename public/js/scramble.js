@@ -141,3 +141,51 @@ function ifSameOrPrimeMove() {
         ifSamePrime = (randomIterator - 1);
     }
 }
+
+function scrCube(scramble, piecesTable) {
+    // let piecesTable = piecesTable;
+    const movement = new Movement();
+    const moveArray = scramble.split(' ');
+    moveArray.forEach((el) => {
+        switch (el) {
+            case 'U':
+                piecesTable = movement.doUMove(piecesTable);
+                break;
+            case 'U\'':
+                piecesTable = movement.doUPrimeMove(piecesTable);
+                break;
+            case 'R':
+                piecesTable = movement.doRMove(piecesTable);
+                break;
+            case 'R\'':
+                piecesTable = movement.doRPrimeMove(piecesTable);
+                break;
+            case 'L':
+                piecesTable = movement.doLMove(piecesTable);
+                break;
+            case 'L\'':
+                piecesTable = movement.doLPrimeMove(piecesTable);
+                break;
+            case 'F':
+                piecesTable = movement.doFMove(piecesTable);
+                break;
+            case 'F\'':
+                piecesTable = movement.doFPrimeMove(piecesTable);
+                break;
+            case 'D':
+                piecesTable = movement.doDMove(piecesTable);
+                break;
+            case 'D\'':
+                piecesTable = movement.doDPrimeMove(piecesTable);
+                break;
+            case 'B':
+                piecesTable = movement.doBMove(piecesTable);
+                break;
+            case 'B\'':
+                piecesTable = movement.doBPrimeMove(piecesTable);
+                break;
+        }
+    })
+
+    return piecesTable;
+}
