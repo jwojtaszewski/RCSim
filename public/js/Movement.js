@@ -257,9 +257,12 @@ class Movement {
 
     doYRotate(pieces) {
 
-        pieces = this.doUMove(pieces);
-        pieces = this.doDPrimeMove(pieces);
-        pieces = this.doEPrimeMove(pieces);
+        this.doUMove(pieces)
+            .then(result => pieces = result);
+        this.doDPrimeMove(pieces)
+            .then(result => pieces = result);
+        this.doEPrimeMove(pieces)
+            .then(result => pieces = result);
 
         return new Promise((resolve, reject) => {
             resolve(pieces);
@@ -268,9 +271,12 @@ class Movement {
 
     doYPrimeRotate(pieces) {
 
-        pieces = this.doUPrimeMove(pieces);
-        pieces = this.doDMove(pieces);
-        pieces = this.doEMove(pieces);
+        this.doUPrimeMove(pieces)
+            .then(result => pieces = result);
+        this.doDMove(pieces)
+            .then(result => pieces = result);
+        this.doEMove(pieces)
+            .then(result => pieces = result);
 
 
         return new Promise((resolve, reject) => {
@@ -280,9 +286,12 @@ class Movement {
 
     doXRotate(pieces) {
 
-        pieces = this.doRMove(pieces);
-        pieces = this.doLPrimeMove(pieces);
-        pieces = this.doMPrimeMove(pieces);
+        this.doRMove(pieces)
+            .then(result => pieces = result);
+        this.doLPrimeMove(pieces)
+            .then(result => pieces = result);
+        this.doMPrimeMove(pieces)
+            .then(result => pieces = result);
 
         return new Promise((resolve, reject) => {
             resolve(pieces);
@@ -291,9 +300,12 @@ class Movement {
 
     doXPrimeRotate(pieces) {
 
-        pieces = this.doRPrimeMove(pieces);
-        pieces = this.doLMove(pieces);
-        pieces = this.doMMove(pieces);
+        this.doRPrimeMove(pieces)
+            .then(result => pieces = result);
+        this.doLMove(pieces)
+            .then(result => pieces = result);
+        this.doMMove(pieces)
+            .then(result => pieces = result);
 
         return new Promise((resolve, reject) => {
             resolve(pieces);

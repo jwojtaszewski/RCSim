@@ -96,8 +96,8 @@
   let groupR = new THREE.Group();
   let isMove = false;
   let moveLetter;
-
   let movesFifo = [];
+  let resultPiecesTable = [];
 
   refreshView(piecesTable);
 
@@ -142,6 +142,15 @@
       return group;
   }
 
+  addWholeCubeToGroup = () => {
+      let group = new THREE.Group();
+      piecesTable.corners.forEach(el => group.add(el.cube));
+      piecesTable.edges.forEach(el => group.add(el.cube));
+      piecesTable.centers.forEach(el => group.add(el));
+      scene.add(group)
+      return group;
+  }
+
   function update() {
       // Draw!
       renderer.render(scene, camera);
@@ -174,6 +183,14 @@
               group = addPiecesToGroup([1, 2, 6, 5, 2, 7, 10, 6]);
           } else if (moveLetter === 'B\'') {
               group = addPiecesToGroup([1, 2, 6, 5, 2, 7, 10, 6]);
+          } else if (moveLetter === 'X') {
+              group = addWholeCubeToGroup();
+          } else if (moveLetter === 'X\'') {
+              group = addWholeCubeToGroup();
+          } else if (moveLetter === 'Y') {
+              group = addWholeCubeToGroup();
+          } else if (moveLetter === 'Y\'') {
+              group = addWholeCubeToGroup();
           }
       }
 
@@ -283,16 +300,110 @@
               }
               break;
           case 'D':
-              piecesTable = movement.doDMove(piecesTable);
+              i++
+              isMove = true;
+              if (i % 6 !== 0) group.rotation.y += Math.PI / 10;
+              else {
+                  group.rotation.y -= Math.PI / 2
+                  movement.doDMove(piecesTable)
+                      .then(result => {
+                          piecesTable = result;
+                          isMove = false;
+                      })
+              }
               break;
           case 'D\'':
-              piecesTable = movement.doDPrimeMove(piecesTable);
+              i++
+              isMove = true;
+              if (i % 6 !== 0) group.rotation.y -= Math.PI / 10;
+              else {
+                  group.rotation.y += Math.PI / 2
+                  movement.doDPrimeMove(piecesTable)
+                      .then(result => {
+                          piecesTable = result;
+                          isMove = false;
+                      })
+              }
               break;
           case 'B':
-              piecesTable = movement.doBMove(piecesTable);
+              i++
+              isMove = true;
+              if (i % 6 !== 0) group.rotation.z += Math.PI / 10;
+              else {
+                  group.rotation.z -= Math.PI / 2
+                  movement.doBMove(piecesTable)
+                      .then(result => {
+                          piecesTable = result;
+                          isMove = false;
+                      })
+              }
               break;
           case 'B\'':
-              piecesTable = movement.doBPrimeMove(piecesTable);
+              i++
+              isMove = true;
+              if (i % 6 !== 0) group.rotation.z -= Math.PI / 10;
+              else {
+                  group.rotation.z += Math.PI / 2
+                  movement.doBPrimeMove(piecesTable)
+                      .then(result => {
+                          piecesTable = result;
+                          isMove = false;
+                      })
+              }
+              break;
+          case 'X':
+              i++
+              isMove = true;
+              if (i % 6 !== 0) group.rotation.x -= Math.PI / 10;
+              else {
+                  group.rotation.x += Math.PI / 2
+                  movement.doXRotate(piecesTable)
+                      .then(result => {
+                          piecesTable = result;
+                          isMove = false;
+                      })
+              }
+              break;
+          case 'X\'':
+              i++
+              isMove = true;
+              if (i % 6 !== 0) group.rotation.x += Math.PI / 10;
+              else {
+                  group.rotation.x -= Math.PI / 2
+                  movement.doXPrimeRotate(piecesTable)
+                      .then(result => {
+                          piecesTable = result;
+                          isMove = false;
+                      })
+              }
+              break;
+          case 'Y':
+              i++
+              isMove = true;
+              if (i % 6 !== 0) group.rotation.y -= Math.PI / 10;
+              else {
+                  group.rotation.y += Math.PI / 2
+                  movement.doYRotate(piecesTable)
+                      .then(result => {
+                          console.log(result)
+                          piecesTable = result;
+                          isMove = false;
+                      })
+                  isMove = false;
+              }
+              break;
+          case 'Y\'':
+              i++
+              isMove = true;
+              if (i % 6 !== 0) group.rotation.y += Math.PI / 10;
+              else {
+                  group.rotation.y -= Math.PI / 2
+                  movement.doYPrimeRotate(piecesTable)
+                      .then(result => {
+                          piecesTable = result;
+                          isMove = false;
+                      })
+              }
               break;
       }
 

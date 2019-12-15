@@ -142,50 +142,63 @@ function ifSameOrPrimeMove() {
     }
 }
 
-function scrCube(scramble, piecesTable) {
-    // let piecesTable = piecesTable;
-    const movement = new Movement();
-    const moveArray = scramble.split(' ');
-    moveArray.forEach((el) => {
-        switch (el) {
-            case 'U':
-                piecesTable = movement.doUMove(piecesTable);
-                break;
-            case 'U\'':
-                piecesTable = movement.doUPrimeMove(piecesTable);
-                break;
-            case 'R':
-                piecesTable = movement.doRMove(piecesTable);
-                break;
-            case 'R\'':
-                piecesTable = movement.doRPrimeMove(piecesTable);
-                break;
-            case 'L':
-                piecesTable = movement.doLMove(piecesTable);
-                break;
-            case 'L\'':
-                piecesTable = movement.doLPrimeMove(piecesTable);
-                break;
-            case 'F':
-                piecesTable = movement.doFMove(piecesTable);
-                break;
-            case 'F\'':
-                piecesTable = movement.doFPrimeMove(piecesTable);
-                break;
-            case 'D':
-                piecesTable = movement.doDMove(piecesTable);
-                break;
-            case 'D\'':
-                piecesTable = movement.doDPrimeMove(piecesTable);
-                break;
-            case 'B':
-                piecesTable = movement.doBMove(piecesTable);
-                break;
-            case 'B\'':
-                piecesTable = movement.doBPrimeMove(piecesTable);
-                break;
-        }
-    })
+//------------------------------------------------scramble cube wiithout animation
+// function scrCube(scramble, piecesTable) {
+//     // let piecesTable = piecesTable;
+//     const movement = new Movement();
+//     const moveArray = scramble.split(' ');
+//     moveArray.forEach((el) => {
+//         switch (el) {
+//             case 'U':
+//                 movement.doUMove(piecesTable)
+//                     .then(result => piecesTable = result);
+//                 break;
+//             case 'U\'':
+//                 movement.doUPrimeMove(piecesTable)
+//                     .then(result => piecesTable = result);
+//                 break;
+//             case 'R':
+//                 movement.doRMove(piecesTable)
+//                     .then(result => piecesTable = result);
+//                 break;
+//             case 'R\'':
+//                 movement.doRPrimeMove(piecesTable)
+//                     .then(result => piecesTable = result);
+//                 break;
+//             case 'L':
+//                 movement.doLMove(piecesTable)
+//                     .then(result => piecesTable = result);
+//                 break;
+//             case 'L\'':
+//                 movement.doLPrimeMove(piecesTable)
+//                     .then(result => piecesTable = result);
+//                 break;
+//             case 'F':
+//                 movement.doFMove(piecesTable)
+//                     .then(result => piecesTable = result);
+//                 break;
+//             case 'F\'':
+//                 movement.doFPrimeMove(piecesTable)
+//                     .then(result => piecesTable = result);
+//                 break;
+//             case 'D':
+//                 movement.doDMove(piecesTable)
+//                     .then(result => piecesTable = result);
+//                 break;
+//             case 'D\'':
+//                 movement.doDPrimeMove(piecesTable)
+//                     .then(result => piecesTable = result);
+//                 break;
+//             case 'B':
+//                 movement.doBMove(piecesTable)
+//                     .then(result => piecesTable = result);
+//                 break;
+//             case 'B\'':
+//                 movement.doBPrimeMove(piecesTable)
+//                     .then(result => piecesTable = result);
+//                 break;
+//         }
+//     })
 
-    return piecesTable;
-}
+//     return piecesTable;
+// }

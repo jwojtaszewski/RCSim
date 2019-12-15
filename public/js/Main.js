@@ -40,7 +40,9 @@ class Main {
             if (e.keyCode == "32" && !this.isTimeRun) {
                 const scramble = generateScramble();
                 this.updateScramble(scramble);
-                scrambleCube(scramble);
+                // scrambleCube(scramble);
+                const moveArray = scramble.split(' ');
+                movesFifo = moveArray;
                 this.isInspection = true;
             }
 
