@@ -85,6 +85,14 @@ app.post("/unlogedTimer", function (request, response) {
     response.sendFile(path.join(__dirname, "/timer.html"));
 })
 
+app.post("/timer", function (request, response) {
+    response.sendFile(path.join(__dirname, "/timerPage.html"));
+})
+
+app.post("/", function (request, response) {
+    response.sendFile(path.join(__dirname, "/timer.html"));
+})
+
 app.post("/regist", regist.reg)
 
 app.post("/auth", login.log);

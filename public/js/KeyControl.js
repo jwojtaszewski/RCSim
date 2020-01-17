@@ -59,11 +59,6 @@ class KeyControl {
             return 'Y\'';
         }
 
-        if (e.keyCode == 28) {
-            piecesTable = buildCube.getCube();
-        }
-
-
         if (e.keyCode == 84) {
             return 'X';
         }

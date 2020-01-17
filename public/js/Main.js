@@ -6,6 +6,7 @@ class Main {
         this.resetBtn = document.querySelector(".resetButton");
         this.statsText = document.querySelectorAll(".mainStats span");
         this.scramble = document.querySelector(".src");
+        this.solveButton = document.querySelector(".autoSolve");
 
         this.isInspection = false;
         this.isTimeRun = false;
@@ -18,49 +19,57 @@ class Main {
 
         this.startKeysArray = [73, 74, 75, 68, 69, 70, 71, 72, 83, 79, 87];
 
-        // window.addEventListener("keyup", (e) => { //start czas
-        //     if (e.keyCode == "32" && this.timer.getI() == 1) this.timer.start();
-        // });
-
-        // window.addEventListener("keydown", (e) => { //stop czas
-        //     this.display.style.color = "gold";
-        //     if (e.keyCode == "32" && this.timer.getI() == 2) {
-        //         this.timer.stop();
-        //         this.updateTimes.saveTime(this.timer.getTime());
-        //         this.insertToDB();
-        //     }
-        // });
-
-        // window.addEventListener("keyup", (e) => { //zmiana i
-        //     if (e.keyCode == "32" && this.timer.getI() == 3) this.timer.setI(1);
-        //     if (e.keyCode == "27") this.timer.stop(), this.timer.reset();
-        // });
-
-        window.addEventListener("keyup", (e) => {
-            if (e.keyCode == "32" && !this.isTimeRun) {
+        if (this.display.dataset.mode === 'timer') {
+            window.addEventListener("keyup", (e) => { //start czas
+                if (e.keyCode == "32" && this.timer.getI() == 1) this.timer.start();
                 const scramble = generateScramble();
                 this.updateScramble(scramble);
-                // scrambleCube(scramble);
-                const moveArray = scramble.split(' ');
-                movesFifo = moveArray;
-                this.isInspection = true;
-            }
+            });
 
-            if (this.startKeysArray.includes(e.keyCode) && this.isInspection) {
-                this.timer.start();
-                this.isInspection = false;
-                this.isTimeRun = true;
-            }
-
-            if (this.isTimeRun) {
-                if (isCubeSolved()) {
+            window.addEventListener("keydown", (e) => { //stop czas
+                this.display.style.color = "gold";
+                if (e.keyCode == "32" && this.timer.getI() == 2) {
                     this.timer.stop();
                     this.updateTimes.saveTime(this.timer.getTime());
                     this.insertToDB();
-                    this.isTimeRun = false;
                 }
-            }
-        });
+            });
+
+            window.addEventListener("keyup", (e) => { //zmiana i
+                if (e.keyCode == "32" && this.timer.getI() == 3) this.timer.setI(1);
+                if (e.keyCode == "27") this.timer.stop(), this.timer.reset();
+            });
+
+        } else if (this.display.dataset.mode === 'solver') {
+            window.addEventListener("keyup", (e) => {
+                if (e.keyCode == "32" && !this.isTimeRun) {
+                    const scramble = generateScramble();
+                    this.updateScramble(scramble);
+                    // scrambleCube(scramble);
+                    const moveArray = scramble.split(' ');
+                    movesFifo = moveArray; // movesFifo from Scene.js
+                    this.isInspection = true;
+                }
+
+                if (this.startKeysArray.includes(e.keyCode) && this.isInspection) {
+                    this.timer.start();
+                    this.isInspection = false;
+                    this.isTimeRun = true;
+                }
+
+                if (this.isTimeRun) {
+                    if (isCubeSolved()) {
+                        this.timer.stop();
+                        this.updateTimes.saveTime(this.timer.getTime());
+                        this.insertToDB();
+                        this.isTimeRun = false;
+                        rotateFifo = [];
+                    }
+                }
+            });
+        }
+
+
 
         window.addEventListener("click", (e) => { //wykrywanie nacisniętego czasu
             if (e.target.classList.contains("time")) {
@@ -89,6 +98,15 @@ class Main {
             element.style.color = "#00cc99";
             element.style.marginLeft = "3px"
         });
+
+        this.solveButton.addEventListener("click", () => {
+            console.log('wlazlo');
+            autoSolve();
+        });
+    }
+
+    solveCube() {
+
     }
 
     updateScramble(scramble) {
@@ -131,6 +149,7 @@ class Main {
             return result
         }
     }
+
 
     insertToDB = async () => {
 

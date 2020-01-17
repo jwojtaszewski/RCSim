@@ -38,7 +38,8 @@
             <section class="mainContentSection">
                 <span class="src">Press [space] to start</span>
                 <div class="display">00:00</div>
-                <div class="cubeContainer">
+                <div class="cubeContainer"></div>
+                <button class="autoSolve"></button>
             </section>
             <section class="statsTimesSection">
                 <div class="statsTable">
@@ -103,6 +104,7 @@
     <script src="public/js/BuildCube.js"></script>
     <script src="public/js/BuildPiece.js"></script>
     <script src="public/js/Movement.js"></script>
+    <script src="public/js/KeyControl.js"></script>
     <script src="public/js/Scene.js"></script>
     <script>
         getFromDB = async () => {

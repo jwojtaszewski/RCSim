@@ -30,10 +30,7 @@
       );
 
   //   camera.position.setLength(-100);
-
   const scene = new THREE.Scene();
-
-  // Add the camera to the scene.
   scene.add(camera);
 
   // Start the renderer.
@@ -56,6 +53,9 @@
   scene.add(pointLight);
 
   controls = new THREE.OrbitControls(camera, renderer.domElement);
+  camera.position.x = 0;
+  camera.position.y = 10.5;
+  camera.position.z = 0;
 
   // controls.addEventListener('change', renderer);
   controls.target.set(0, 0, -10);
@@ -68,8 +68,44 @@
 
   //-------------------------------cube-------------------------------------------
 
+  const buildCube = new BuildCube();
+  let piecesTable = {};
+  piecesTable.corners = buildCube.getCornerArray();
+  piecesTable.edges = buildCube.getEdgeArray();
+  piecesTable.centers = buildCube.getCenters();
+  const movement = new Movement();
+
+  let group = new THREE.Group();
+  let groupR = new THREE.Group();
+  let isMove = false;
+  let moveLetter;
+  let movesFifo = [];
+  let resultPiecesTable = {};
+  let rotateFifo = [];
+
+  const cornersNaturalOrder = ['UFL', 'UBL', 'UBR', 'UFR', 'DFL', 'DBL', 'DBR', 'DFR'];
+  const edgesNaturalOrder = ['UF', 'UL', 'UB', 'UR', 'FR', 'FL', 'BL', 'BR', 'DF', 'DL', 'DB', 'DR'];
+
+  window.addEventListener("keydown", (e) => {
+      e.keyCode == 27 ? resetCube() : movesFifo = [...movesFifo, KeyControl.control(e)];
+  })
+
+  scrambleCube = (scramble) => {
+      piecesTable = scrCube(scramble, piecesTable);
+  }
+
+  resetCube = () => {
+      scene.children = scene.children.filter(el => el.type == 'PerspectiveCamera' || el.type == 'PointLight')
+      BOX = new THREE.Object3D();
+      const newCube = new BuildCube();
+      piecesTable.corners = newCube.getCornerArray();
+      piecesTable.edges = newCube.getEdgeArray();
+      piecesTable.centers = newCube.getCenters();
+      rotateFifo = [];
+      refreshView(piecesTable);
+  }
+
   let BOX = new THREE.Object3D();
-  //   BOX.rotation.x = Math.PI / 5;
 
   refreshView = (piecesTable) => {
       piecesTable.corners.forEach((el) => {
@@ -84,30 +120,9 @@
       scene.add(BOX);
   }
 
-  //----------------------------------------------
-  const buildCube = new BuildCube();
-  let piecesTable = {};
-  piecesTable.corners = buildCube.getCornerArray();
-  piecesTable.edges = buildCube.getEdgeArray();
-  piecesTable.centers = buildCube.getCenters();
-  const movement = new Movement();
-
-  let group = new THREE.Group();
-  let groupR = new THREE.Group();
-  let isMove = false;
-  let moveLetter;
-  let movesFifo = [];
-  let resultPiecesTable = [];
-
   refreshView(piecesTable);
 
-  window.addEventListener("keydown", (e) => {
-      movesFifo = [...movesFifo, KeyControl.control(e)];
-  })
-
-  scrambleCube = (scramble) => {
-      piecesTable = scrCube(scramble, piecesTable);
-  }
+  //----------------------------------- check if cube is solved
 
   isCubeSolved = () => {
       return checkOrder(piecesTable) && checkOrientation(piecesTable);
@@ -117,16 +132,33 @@
       return pieces.corners.every((el) => el.orientation === 0) && pieces.edges.every((el) => el.orientation === 0);
   }
 
-  const cornersNaturalOrder = ['UFL', 'UBL', 'UBR', 'UFR', 'DFL', 'DBL', 'DBR', 'DFR'];
-  const edgesNaturalOrder = ['UF', 'UL', 'UB', 'UR', 'FR', 'FL', 'BL', 'BR', 'DF', 'DL', 'DB', 'DR'];
-
   checkOrder = (pieces) => {
       return pieces.corners.every((el, index) => el.cube.name === cornersNaturalOrder[index]) && pieces.edges.every((el, index) => el.cube.name === edgesNaturalOrder[index]);
   }
 
+  //   checkOrderTest = (pieces) => {
+  //     piecesTest = [];
+  //       rotateFifo.forEach(el => {
+  //           if(el === 'Y'){
+  //               piecesTest = movement.doYRotate(piecesTest);
+  //           }
+  //       })
+  //   }
 
   let i = 0;
-  //----------------------------------------------
+
+  //------------------------------------------------ auto solve
+  autoSolve = () => {
+      AutoSolve = new AutoSolve(piecesTable);
+      moves = AutoSolve.solveLoop();
+      moves.foreach(el => {
+          el.forEach(el => {
+              movesFifo.push(el);
+          })
+      })
+  }
+
+  //------------------------------------------------ animation loop
 
   addPiecesToGroup = (tab) => {
       let group = new THREE.Group();
@@ -159,37 +191,19 @@
 
       if (movesFifo != null && !isMove) {
           moveLetter = movesFifo.shift();
-          if (moveLetter === 'R') {
+          if (moveLetter === 'R' || moveLetter === 'R\'') {
               group = addPiecesToGroup([2, 3, 6, 7, 3, 4, 7, 11]);
-          } else if (moveLetter === 'U') {
+          } else if (moveLetter === 'U' || moveLetter === 'U\'') {
               group = addPiecesToGroup([0, 3, 2, 1, 0, 3, 2, 1]);
-          } else if (moveLetter === 'R\'') {
-              group = addPiecesToGroup([2, 3, 6, 7, 3, 4, 7, 11]);
-          } else if (moveLetter === 'U\'') {
-              group = addPiecesToGroup([0, 3, 2, 1, 0, 3, 2, 1]);
-          } else if (moveLetter === 'L') {
+          } else if (moveLetter === 'L' || moveLetter === 'L\'') {
               group = addPiecesToGroup([0, 1, 5, 4, 1, 6, 9, 5]);
-          } else if (moveLetter === 'L\'') {
-              group = addPiecesToGroup([0, 1, 5, 4, 1, 6, 9, 5]);
-          } else if (moveLetter === 'F') {
+          } else if (moveLetter === 'F' || moveLetter === 'F\'') {
               group = addPiecesToGroup([0, 4, 7, 3, 0, 5, 8, 4]);
-          } else if (moveLetter === 'F\'') {
-              group = addPiecesToGroup([0, 4, 7, 3, 0, 5, 8, 4]);
-          } else if (moveLetter === 'D') {
+          } else if (moveLetter === 'D' || moveLetter === 'D\'') {
               group = addPiecesToGroup([4, 5, 6, 7, 8, 9, 10, 11]);
-          } else if (moveLetter === 'D\'') {
-              group = addPiecesToGroup([4, 5, 6, 7, 8, 9, 10, 11]);
-          } else if (moveLetter === 'B\'') {
+          } else if (moveLetter === 'B' || moveLetter === 'B\'') {
               group = addPiecesToGroup([1, 2, 6, 5, 2, 7, 10, 6]);
-          } else if (moveLetter === 'B\'') {
-              group = addPiecesToGroup([1, 2, 6, 5, 2, 7, 10, 6]);
-          } else if (moveLetter === 'X') {
-              group = addWholeCubeToGroup();
-          } else if (moveLetter === 'X\'') {
-              group = addWholeCubeToGroup();
-          } else if (moveLetter === 'Y') {
-              group = addWholeCubeToGroup();
-          } else if (moveLetter === 'Y\'') {
+          } else if (moveLetter === 'X' || moveLetter === 'X\'' || moveLetter === 'Y' || moveLetter === 'Y\'') {
               group = addWholeCubeToGroup();
           }
       }
@@ -361,6 +375,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          rotateFifo.push('X');
                       })
               }
               break;
@@ -374,6 +389,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          rotateFifo.push('X\'');
                       })
               }
               break;
@@ -385,11 +401,10 @@
                   group.rotation.y += Math.PI / 2
                   movement.doYRotate(piecesTable)
                       .then(result => {
-                          console.log(result)
                           piecesTable = result;
                           isMove = false;
+                          rotateFifo.push('Y');
                       })
-                  isMove = false;
               }
               break;
           case 'Y\'':
@@ -402,6 +417,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          rotateFifo.push('Y\'');
                       })
               }
               break;

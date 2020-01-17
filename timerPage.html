@@ -19,7 +19,7 @@
     <div class="main">
         <header>
             <div class="menu">
-                <form action="" method="GET">
+                <form action="/" method="POST">
                     <input type="submit" value="Cube" class="aboutBtn">
                 </form>
                 <form action="timer" method="POST">
@@ -45,10 +45,8 @@
 
         <section class="mainSection">
             <section class="mainContentSection">
-                <span class="src">Press [spacebar] to start</span>
-                <div class="display" data-mode='solver'>00:00</div>
-                <div class="cubeContainer"></div>
-                <button class="autoSolve">Auto Solve</button>
+                <span class="src"></span>
+                <div class="display" style="left: 50%; font-size: 120px;" data-mode='timer'>00:00</div>
             </section>
             <section class="statsTimesSection">
                 <div class="statsTable">
@@ -111,7 +109,6 @@
     <script src="public/js/BuildPiece.js"></script>
     <script src="public/js/Movement.js"></script>
     <script src="public/js/KeyControl.js"></script>
-    <script src="public/js/AutoSolve.js"></script>
     <script src="public/js/Scene.js"></script>
 </body>
 
