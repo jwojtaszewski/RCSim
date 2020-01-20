@@ -19,6 +19,17 @@ class Movement {
         })
     }
 
+    doU2Move(pieces) {
+        pieces.corners = this.moveCorner(pieces.corners, [0, 3, 2, 1], 'U', -Math.PI / 2);
+        pieces.edges = this.moveEdge(pieces.edges, [0, 3, 2, 1], 'U', -Math.PI / 2);
+        pieces.corners = this.moveCorner(pieces.corners, [0, 3, 2, 1], 'U', -Math.PI / 2);
+        pieces.edges = this.moveEdge(pieces.edges, [0, 3, 2, 1], 'U', -Math.PI / 2);
+
+        return new Promise((resolve, reject) => {
+            resolve(pieces);
+        })
+    }
+
     doRMove(pieces) {
         pieces.corners = this.moveCorner(pieces.corners, [3, 7, 6, 2], 'R', -Math.PI / 2);
         pieces.edges = this.moveEdge(pieces.edges, [3, 4, 11, 7], 'R', -Math.PI / 2);
@@ -41,6 +52,17 @@ class Movement {
         pieces.corners[7].orientation = (pieces.corners[7].orientation + 2) % 3
         pieces.corners[6].orientation = (pieces.corners[6].orientation + 1) % 3
         pieces.corners[2].orientation = (pieces.corners[2].orientation + 2) % 3
+
+        return new Promise((resolve, reject) => {
+            resolve(pieces);
+        })
+    }
+
+    doR2Move(pieces) {
+        pieces.corners = this.moveCorner(pieces.corners, [3, 7, 6, 2], 'R', -Math.PI / 2);
+        pieces.edges = this.moveEdge(pieces.edges, [3, 4, 11, 7], 'R', -Math.PI / 2);
+        pieces.corners = this.moveCorner(pieces.corners, [3, 7, 6, 2], 'R', -Math.PI / 2);
+        pieces.edges = this.moveEdge(pieces.edges, [3, 4, 11, 7], 'R', -Math.PI / 2);
 
         return new Promise((resolve, reject) => {
             resolve(pieces);
@@ -76,6 +98,18 @@ class Movement {
             resolve(pieces);
         })
     }
+
+    doL2Move(pieces) {
+        pieces.corners = this.moveCorner(pieces.corners, [0, 1, 5, 4], 'L', Math.PI / 2);
+        pieces.edges = this.moveEdge(pieces.edges, [1, 6, 9, 5], 'L', Math.PI / 2);
+        pieces.corners = this.moveCorner(pieces.corners, [0, 1, 5, 4], 'L', Math.PI / 2);
+        pieces.edges = this.moveEdge(pieces.edges, [1, 6, 9, 5], 'L', Math.PI / 2);
+
+        return new Promise((resolve, reject) => {
+            resolve(pieces);
+        })
+    }
+
 
     doFMove(pieces) {
         pieces.corners = this.moveCorner(pieces.corners, [0, 4, 7, 3], 'F', -Math.PI / 2);
@@ -117,6 +151,17 @@ class Movement {
         })
     }
 
+    doF2Move(pieces) {
+        pieces.corners = this.moveCorner(pieces.corners, [0, 4, 7, 3], 'F', -Math.PI / 2);
+        pieces.edges = this.moveEdge(pieces.edges, [0, 5, 8, 4], 'F', -Math.PI / 2);
+        pieces.corners = this.moveCorner(pieces.corners, [0, 4, 7, 3], 'F', -Math.PI / 2);
+        pieces.edges = this.moveEdge(pieces.edges, [0, 5, 8, 4], 'F', -Math.PI / 2);
+
+        return new Promise((resolve, reject) => {
+            resolve(pieces);
+        })
+    }
+
     doDMove(pieces) {
         pieces.corners = this.moveCorner(pieces.corners, [4, 5, 6, 7], 'D', Math.PI / 2);
         pieces.edges = this.moveEdge(pieces.edges, [8, 9, 10, 11], 'D', Math.PI / 2);
@@ -130,6 +175,18 @@ class Movement {
     doDPrimeMove(pieces) {
         pieces.corners = this.moveCorner(pieces.corners, [4, 7, 6, 5], 'D', -Math.PI / 2);
         pieces.edges = this.moveEdge(pieces.edges, [8, 11, 10, 9], 'D', -Math.PI / 2);
+
+
+        return new Promise((resolve, reject) => {
+            resolve(pieces);
+        })
+    }
+
+    doD2Move(pieces) {
+        pieces.corners = this.moveCorner(pieces.corners, [4, 5, 6, 7], 'D', Math.PI / 2);
+        pieces.edges = this.moveEdge(pieces.edges, [8, 9, 10, 11], 'D', Math.PI / 2);
+        pieces.corners = this.moveCorner(pieces.corners, [4, 5, 6, 7], 'D', Math.PI / 2);
+        pieces.edges = this.moveEdge(pieces.edges, [8, 9, 10, 11], 'D', Math.PI / 2);
 
 
         return new Promise((resolve, reject) => {
@@ -177,6 +234,17 @@ class Movement {
         })
     }
 
+    doB2Move(pieces) {
+        pieces.corners = this.moveCorner(pieces.corners, [1, 2, 6, 5], 'B', Math.PI / 2);
+        pieces.edges = this.moveEdge(pieces.edges, [2, 7, 10, 6], 'B', Math.PI / 2);
+        pieces.corners = this.moveCorner(pieces.corners, [1, 2, 6, 5], 'B', Math.PI / 2);
+        pieces.edges = this.moveEdge(pieces.edges, [2, 7, 10, 6], 'B', Math.PI / 2);
+
+        return new Promise((resolve, reject) => {
+            resolve(pieces);
+        })
+    }
+
     doEMove(pieces) {
         pieces.edges = this.moveEdge(pieces.edges, [4, 5, 6, 7], 'E', Math.PI / 2);
         pieces.centers = this.moveCenter(pieces.centers, [1, 2, 3, 4], 'E', Math.PI / 2)
@@ -206,10 +274,20 @@ class Movement {
         })
     }
 
+    doE2Move(pieces) {
+        pieces.edges = this.moveEdge(pieces.edges, [4, 5, 6, 7], 'E', Math.PI / 2);
+        pieces.centers = this.moveCenter(pieces.centers, [1, 2, 3, 4], 'E', Math.PI / 2)
+        pieces.edges = this.moveEdge(pieces.edges, [4, 5, 6, 7], 'E', Math.PI / 2);
+        pieces.centers = this.moveCenter(pieces.centers, [1, 2, 3, 4], 'E', Math.PI / 2)
+
+        return new Promise((resolve, reject) => {
+            resolve(pieces);
+        })
+    }
+
     doSMove(pieces) {
         pieces.edges = this.moveEdge(pieces.edges, [1, 3, 9, 11], 'S', Math.PI / 2);
         pieces.centers = this.moveCenter(pieces.centers, [0, 1, 3, 5], 'S', Math.PI / 2)
-
 
         return new Promise((resolve, reject) => {
             resolve(pieces);
@@ -220,6 +298,16 @@ class Movement {
         pieces.edges = this.moveEdge(pieces.edges, [1, 9, 3, 11], 'S', -Math.PI / 2);
         pieces.centers = this.moveCenter(pieces.centers, [0, 5, 3, 1], 'S', -Math.PI / 2)
 
+        return new Promise((resolve, reject) => {
+            resolve(pieces);
+        })
+    }
+
+    doS2Move(pieces) {
+        pieces.edges = this.moveEdge(pieces.edges, [1, 3, 9, 11], 'S', Math.PI / 2);
+        pieces.centers = this.moveCenter(pieces.centers, [0, 1, 3, 5], 'S', Math.PI / 2)
+        pieces.edges = this.moveEdge(pieces.edges, [1, 3, 9, 11], 'S', Math.PI / 2);
+        pieces.centers = this.moveCenter(pieces.centers, [0, 1, 3, 5], 'S', Math.PI / 2)
 
         return new Promise((resolve, reject) => {
             resolve(pieces);
@@ -602,6 +690,20 @@ class Movement {
 
         pieces = this.centerPoisitioning(pieces);
         pieces = this.rotateCenter(pieces, move, angle);
+
+        return pieces;
+    }
+
+    movePiece(pieces, pieceToChange) {
+        let tab = [];
+
+        tab[0] = pieces.corners[2];
+        pieces.corners[2] = pieces.corners[3];
+        pieces.corners[3] = tab[0];
+
+        tab[1] = pieces.edges[3];
+        pieces.edges[3] = pieces.edges[pieceToChange];
+        pieces.edges[pieceToChange] = tab[1];
 
         return pieces;
     }

@@ -149,28 +149,38 @@
 
   //------------------------------------------------ auto solve
   autoSolve = () => {
-      AutoSolve = new AutoSolve(piecesTable);
-      moves = AutoSolve.solveLoop();
-      moves.foreach(el => {
-          el.forEach(el => {
-              movesFifo.push(el);
-          })
+      let tmpPieces = {};
+      tmpPieces = JSON.parse(JSON.stringify(piecesTable))
+      console.log(piecesTable);
+      autoSolve = new AutoSolve(tmpPieces);
+      moves = autoSolve.solveLoop();
+      moves.forEach(el => {
+          movesFifo.push(el);
       })
+      console.log(piecesTable);
   }
 
   //------------------------------------------------ animation loop
 
   addPiecesToGroup = (tab) => {
       let group = new THREE.Group();
-      group.add(piecesTable.corners[tab[0]].cube);
-      group.add(piecesTable.corners[tab[1]].cube);
-      group.add(piecesTable.corners[tab[2]].cube);
-      group.add(piecesTable.corners[tab[3]].cube);
-      group.add(piecesTable.edges[tab[4]].cube);
-      group.add(piecesTable.edges[tab[5]].cube);
-      group.add(piecesTable.edges[tab[6]].cube);
-      group.add(piecesTable.edges[tab[7]].cube);
-      scene.add(group);
+      if (tab.length > 4) {
+          group.add(piecesTable.corners[tab[0]].cube);
+          group.add(piecesTable.corners[tab[1]].cube);
+          group.add(piecesTable.corners[tab[2]].cube);
+          group.add(piecesTable.corners[tab[3]].cube);
+          group.add(piecesTable.edges[tab[4]].cube);
+          group.add(piecesTable.edges[tab[5]].cube);
+          group.add(piecesTable.edges[tab[6]].cube);
+          group.add(piecesTable.edges[tab[7]].cube);
+          scene.add(group);
+      } else {
+          group.add(piecesTable.edges[tab[0]].cube);
+          group.add(piecesTable.edges[tab[1]].cube);
+          group.add(piecesTable.edges[tab[2]].cube);
+          group.add(piecesTable.edges[tab[3]].cube);
+          scene.add(group);
+      }
       return group;
   }
 
@@ -189,20 +199,22 @@
       controls.update();
       timeElapsed = clock.getDelta();
 
-      if (movesFifo != null && !isMove) {
+      if (movesFifo.length > 0 && !isMove) {
           moveLetter = movesFifo.shift();
-          if (moveLetter === 'R' || moveLetter === 'R\'') {
+          if (moveLetter === 'R' || moveLetter === 'R\'' || moveLetter === 'R2') {
               group = addPiecesToGroup([2, 3, 6, 7, 3, 4, 7, 11]);
-          } else if (moveLetter === 'U' || moveLetter === 'U\'') {
+          } else if (moveLetter === 'U' || moveLetter === 'U\'' || moveLetter === 'U2') {
               group = addPiecesToGroup([0, 3, 2, 1, 0, 3, 2, 1]);
-          } else if (moveLetter === 'L' || moveLetter === 'L\'') {
+          } else if (moveLetter === 'L' || moveLetter === 'L\'' || moveLetter === 'L2') {
               group = addPiecesToGroup([0, 1, 5, 4, 1, 6, 9, 5]);
-          } else if (moveLetter === 'F' || moveLetter === 'F\'') {
+          } else if (moveLetter === 'F' || moveLetter === 'F\'' || moveLetter === 'F2') {
               group = addPiecesToGroup([0, 4, 7, 3, 0, 5, 8, 4]);
-          } else if (moveLetter === 'D' || moveLetter === 'D\'') {
+          } else if (moveLetter === 'D' || moveLetter === 'D\'' || moveLetter === 'D2') {
               group = addPiecesToGroup([4, 5, 6, 7, 8, 9, 10, 11]);
-          } else if (moveLetter === 'B' || moveLetter === 'B\'') {
+          } else if (moveLetter === 'B' || moveLetter === 'B\'' || moveLetter === 'B2') {
               group = addPiecesToGroup([1, 2, 6, 5, 2, 7, 10, 6]);
+          } else if (moveLetter === 'E' || moveLetter === 'E\'' || moveLetter === 'E2') {
+              group = addPiecesToGroup([4, 5, 6, 7]);
           } else if (moveLetter === 'X' || moveLetter === 'X\'' || moveLetter === 'Y' || moveLetter === 'Y\'') {
               group = addWholeCubeToGroup();
           }
@@ -219,6 +231,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          i = 0;
                       })
               }
               break;
@@ -232,6 +245,21 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          i = 0;
+                      })
+              }
+              break;
+          case 'U2':
+              i++
+              isMove = true;
+              if (i % 11 !== 0) group.rotation.y += Math.PI / 10;
+              else {
+                  group.rotation.y -= Math.PI
+                  movement.doU2Move(piecesTable)
+                      .then(result => {
+                          piecesTable = result;
+                          isMove = false;
+                          i = 0;
                       })
               }
               break;
@@ -245,6 +273,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          i = 0;
                       })
               }
               break;
@@ -258,6 +287,21 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          i = 0;
+                      })
+              }
+              break;
+          case 'R2':
+              i++
+              isMove = true;
+              if (i % 11 !== 0) group.rotation.x -= Math.PI / 10;
+              else {
+                  group.rotation.x += Math.PI
+                  movement.doR2Move(piecesTable)
+                      .then(result => {
+                          piecesTable = result;
+                          isMove = false;
+                          i = 0;
                       })
               }
               break;
@@ -271,6 +315,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          i = 0;
                       })
               }
               break;
@@ -284,6 +329,21 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          i = 0;
+                      })
+              }
+              break;
+          case 'L2':
+              i++
+              isMove = true;
+              if (i % 11 !== 0) group.rotation.x += Math.PI / 10;
+              else {
+                  group.rotation.x -= Math.PI
+                  movement.doL2Move(piecesTable)
+                      .then(result => {
+                          piecesTable = result;
+                          isMove = false;
+                          i = 0;
                       })
               }
               break;
@@ -297,6 +357,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          i = 0;
                       })
               }
               break;
@@ -310,6 +371,21 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          i = 0;
+                      })
+              }
+              break;
+          case 'F2':
+              i++
+              isMove = true;
+              if (i % 11 !== 0) group.rotation.z -= Math.PI / 10;
+              else {
+                  group.rotation.z += Math.PI
+                  movement.doF2Move(piecesTable)
+                      .then(result => {
+                          piecesTable = result;
+                          isMove = false;
+                          i = 0;
                       })
               }
               break;
@@ -323,6 +399,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          i = 0;
                       })
               }
               break;
@@ -336,6 +413,21 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          i = 0;
+                      })
+              }
+              break;
+          case 'D2':
+              i++
+              isMove = true;
+              if (i % 11 !== 0) group.rotation.y += Math.PI / 10;
+              else {
+                  group.rotation.y -= Math.PI
+                  movement.doD2Move(piecesTable)
+                      .then(result => {
+                          piecesTable = result;
+                          isMove = false;
+                          i = 0;
                       })
               }
               break;
@@ -349,6 +441,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          i = 0;
                       })
               }
               break;
@@ -362,6 +455,63 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          i = 0;
+                      })
+              }
+              break;
+          case 'B2':
+              i++
+              isMove = true;
+              if (i % 11 !== 0) group.rotation.z += Math.PI / 10;
+              else {
+                  group.rotation.z -= Math.PI
+                  movement.doB2Move(piecesTable)
+                      .then(result => {
+                          piecesTable = result;
+                          isMove = false;
+                          i = 0;
+                      })
+              }
+              break;
+          case 'E':
+              i++
+              isMove = true;
+              if (i % 6 !== 0) group.rotation.y += Math.PI / 10;
+              else {
+                  group.rotation.y -= Math.PI / 2
+                  movement.doEMove(piecesTable)
+                      .then(result => {
+                          piecesTable = result;
+                          isMove = false;
+                          i = 0;
+                      })
+              }
+              break;
+          case 'E\'':
+              i++
+              isMove = true;
+              if (i % 6 !== 0) group.rotation.y -= Math.PI / 10;
+              else {
+                  group.rotation.y += Math.PI / 2
+                  movement.doEPrimeMove(piecesTable)
+                      .then(result => {
+                          piecesTable = result;
+                          isMove = false;
+                          i = 0;
+                      })
+              }
+              break;
+          case 'E2':
+              i++
+              isMove = true;
+              if (i % 11 !== 0) group.rotation.y -= Math.PI / 10;
+              else {
+                  group.rotation.y += Math.PI
+                  movement.doE2Move(piecesTable)
+                      .then(result => {
+                          piecesTable = result;
+                          isMove = false;
+                          i = 0;
                       })
               }
               break;
@@ -375,6 +525,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          i = 0;
                           rotateFifo.push('X');
                       })
               }
@@ -389,6 +540,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          i = 0;
                           rotateFifo.push('X\'');
                       })
               }
@@ -403,6 +555,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          i = 0;
                           rotateFifo.push('Y');
                       })
               }
@@ -417,6 +570,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          i = 0;
                           rotateFifo.push('Y\'');
                       })
               }

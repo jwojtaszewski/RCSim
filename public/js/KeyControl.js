@@ -66,5 +66,13 @@ class KeyControl {
         if (e.keyCode == 66) {
             return 'X\'';
         }
+
+        if (e.keyCode == 81) {
+            return 'D2';
+        }
+
+        if (e.keyCode == 82) {
+            return 'L2';
+        }
     }
 }
