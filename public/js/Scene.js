@@ -152,12 +152,12 @@
       let tmpPieces = {};
       tmpPieces = JSON.parse(JSON.stringify(piecesTable))
       console.log(piecesTable);
+      console.log(tmpPieces);
       autoSolve = new AutoSolve(tmpPieces);
       moves = autoSolve.solveLoop();
       moves.forEach(el => {
           movesFifo.push(el);
       })
-      console.log(piecesTable);
   }
 
   //------------------------------------------------ animation loop
@@ -224,6 +224,7 @@
           case 'U':
               i++
               isMove = true;
+              console.log(i);
               if (i % 6 !== 0) group.rotation.y -= Math.PI / 10;
               else {
                   group.rotation.y += Math.PI / 2
@@ -231,6 +232,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          moveLetter = '';
                           i = 0;
                       })
               }
@@ -245,6 +247,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          moveLetter = '';
                           i = 0;
                       })
               }
@@ -259,6 +262,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          moveLetter = '';
                           i = 0;
                       })
               }
@@ -273,6 +277,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          moveLetter = '';
                           i = 0;
                       })
               }
@@ -287,6 +292,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          moveLetter = '';
                           i = 0;
                       })
               }
@@ -301,6 +307,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          moveLetter = '';
                           i = 0;
                       })
               }
@@ -315,6 +322,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          moveLetter = '';
                           i = 0;
                       })
               }
@@ -329,6 +337,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          moveLetter = '';
                           i = 0;
                       })
               }
@@ -343,6 +352,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          moveLetter = '';
                           i = 0;
                       })
               }
@@ -357,6 +367,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          moveLetter = '';
                           i = 0;
                       })
               }
@@ -371,6 +382,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          moveLetter = '';
                           i = 0;
                       })
               }
@@ -385,6 +397,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          moveLetter = '';
                           i = 0;
                       })
               }
@@ -399,6 +412,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          moveLetter = '';
                           i = 0;
                       })
               }
@@ -413,6 +427,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          moveLetter = '';
                           i = 0;
                       })
               }
@@ -427,6 +442,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          moveLetter = '';
                           i = 0;
                       })
               }
@@ -441,6 +457,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          moveLetter = '';
                           i = 0;
                       })
               }
@@ -455,6 +472,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          moveLetter = '';
                           i = 0;
                       })
               }
@@ -469,6 +487,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          moveLetter = '';
                           i = 0;
                       })
               }
@@ -483,6 +502,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          moveLetter = '';
                           i = 0;
                       })
               }
@@ -497,6 +517,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          moveLetter = '';
                           i = 0;
                       })
               }
@@ -511,6 +532,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          moveLetter = '';
                           i = 0;
                       })
               }
@@ -525,6 +547,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          moveLetter = '';
                           i = 0;
                           rotateFifo.push('X');
                       })
@@ -540,6 +563,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          moveLetter = '';
                           i = 0;
                           rotateFifo.push('X\'');
                       })
@@ -555,6 +579,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          moveLetter = '';
                           i = 0;
                           rotateFifo.push('Y');
                       })
@@ -570,6 +595,7 @@
                       .then(result => {
                           piecesTable = result;
                           isMove = false;
+                          moveLetter = '';
                           i = 0;
                           rotateFifo.push('Y\'');
                       })

@@ -17,18 +17,17 @@ class AutoSolve {
     solveLoop() {
         let i = 0;
         do {
-            console.log(this.piecesTab);
             this.edgeToSolve = this.checkOrder();
             this.edgeToSolve !== null ? this.doCycle(this.edgeToSolve) : '';
             i++;
-        } while (i != 2)
+        } while (i != 10)
         return this.movesToSolve;
     }
 
     checkOrder() {
         const bufor = this.piecesTab.edges[3];
-        if (bufor.cube.name !== 'UR') {
-            return bufor.cube.name;
+        if (bufor.cube.object.name !== 'UR') {
+            return bufor.cube.object.name;
         } else {
             return this.findUnsolvedEdge();
             // if (bufor.orirentation === 0) {
@@ -41,8 +40,8 @@ class AutoSolve {
 
     findUnsolvedEdge() {
         this.piecesTab.edges.forEach((el, i) => {
-            if ((el.cube.name !== this.edgesOrder[i]) || (el.orirentation !== 0)) {
-                return el.cube.name;
+            if ((el.cube.object.name !== this.edgesOrder[i]) || (el.orirentation !== 0)) {
+                return el.cube.object.name;
             } else {
                 this.areEdgesSolved = true;
                 this.isSolved = true; //   tymczasowo 
