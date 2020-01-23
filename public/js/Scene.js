@@ -151,8 +151,6 @@
   autoSolve = () => {
       let tmpPieces = {};
       tmpPieces = JSON.parse(JSON.stringify(piecesTable))
-      console.log(piecesTable);
-      console.log(tmpPieces);
       autoSolve = new AutoSolve(tmpPieces);
       moves = autoSolve.solveLoop();
       moves.forEach(el => {
@@ -215,6 +213,8 @@
               group = addPiecesToGroup([1, 2, 6, 5, 2, 7, 10, 6]);
           } else if (moveLetter === 'E' || moveLetter === 'E\'' || moveLetter === 'E2') {
               group = addPiecesToGroup([4, 5, 6, 7]);
+          } else if (moveLetter === 'M' || moveLetter === 'M\'' || moveLetter === 'M2') {
+              group = addPiecesToGroup([0, 2, 8, 10]);
           } else if (moveLetter === 'X' || moveLetter === 'X\'' || moveLetter === 'Y' || moveLetter === 'Y\'') {
               group = addWholeCubeToGroup();
           }
@@ -529,6 +529,36 @@
               else {
                   group.rotation.y += Math.PI
                   movement.doE2Move(piecesTable)
+                      .then(result => {
+                          piecesTable = result;
+                          isMove = false;
+                          moveLetter = '';
+                          i = 0;
+                      })
+              }
+              break;
+          case 'M':
+              i++
+              isMove = true;
+              if (i % 6 !== 0) group.rotation.x -= Math.PI / 10;
+              else {
+                  group.rotation.x += Math.PI / 2
+                  movement.doMMove(piecesTable)
+                      .then(result => {
+                          piecesTable = result;
+                          isMove = false;
+                          moveLetter = '';
+                          i = 0;
+                      })
+              }
+              break;
+          case 'M\'':
+              i++
+              isMove = true;
+              if (i % 11 !== 0) group.rotation.x -= Math.PI / 10;
+              else {
+                  group.rotation.x += Math.PI
+                  movement.doMPrimeMove(piecesTable)
                       .then(result => {
                           piecesTable = result;
                           isMove = false;

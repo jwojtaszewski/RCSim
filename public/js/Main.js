@@ -100,7 +100,6 @@ class Main {
         });
 
         this.solveButton.addEventListener("click", () => {
-            console.log('wlazlo');
             autoSolve();
         });
     }
