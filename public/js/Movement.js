@@ -723,10 +723,13 @@ class Movement {
         pieces.edges[1] = pieces.edges[2];
         pieces.edges[2] = tab[1];
 
-        // if (changeOrientation === 1) {
-        //     pieces.corners[1].orientation = (pieces.corners[1].orientation + 1) % 3
-        //     pieces.corners[pieceToChange].orientation = (pieces.corners[pieceToChange].orientation + 1) % 3
-        // }
+        if (changeOrientation === 1) {
+            pieces.corners[1].orientation = (pieces.corners[1].orientation + 1) % 3
+            pieces.corners[pieceToChange].orientation = (pieces.corners[pieceToChange].orientation + 2) % 3
+        }else if (changeOrientation === 2){
+            pieces.corners[1].orientation = (pieces.corners[1].orientation + 2) % 3
+            pieces.corners[pieceToChange].orientation = (pieces.corners[pieceToChange].orientation + 1) % 3
+        }
         return pieces;
     }
 }

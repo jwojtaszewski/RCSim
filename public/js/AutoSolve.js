@@ -173,9 +173,9 @@ class AutoSolve {
                 if (orientation === 0) {
                     this.movesToSolve = this.movesToSolve.concat(["F", "R'"]).concat(this.permY).concat(["R", "F'"]);
                 } else if (orientation === 1) {
-                    this.movesToSolve = this.movesToSolve.concat(["F2"]).concat(this.permY).concat(["F2"]);
-                } else {
                     this.movesToSolve = this.movesToSolve.concat(["F'", "D"]).concat(this.permY).concat(["D'", "F"]);
+                } else {
+                    this.movesToSolve = this.movesToSolve.concat(["F2"]).concat(this.permY).concat(["F2"]);
                 }
                 this.piecesTab = movement.moveCornerOP(this.piecesTab, 0, orientation);
                 break;
@@ -184,9 +184,9 @@ class AutoSolve {
                 if (orientation === 0) {
                     this.movesToSolve = this.movesToSolve.concat(["R", "D'"]).concat(this.permY).concat(["D", "R'"]);
                 } else if (orientation === 1) {
-                    this.movesToSolve = this.movesToSolve.concat(["R2"]).concat(this.permY).concat(["R2"]);
-                } else {
                     this.movesToSolve = this.movesToSolve.concat(["R'", "F"]).concat(this.permY).concat(["F'", "R"]);
+                } else {
+                    this.movesToSolve = this.movesToSolve.concat(["R2"]).concat(this.permY).concat(["R2"]);
                 }
                 this.piecesTab = movement.moveCornerOP(this.piecesTab, 2, orientation);
                 break;
@@ -195,9 +195,9 @@ class AutoSolve {
                 if (orientation === 0) {
                     this.movesToSolve = this.movesToSolve.concat(["F"]).concat(this.permY).concat(["F'"]);
                 } else if (orientation === 1) {
-                    this.movesToSolve = this.movesToSolve.concat(["F2", "D"]).concat(this.permY).concat(["D'", "F2"]);
-                } else {
                     this.movesToSolve = this.movesToSolve.concat(["R'"]).concat(this.permY).concat(["R"]);
+                } else {
+                    this.movesToSolve = this.movesToSolve.concat(["F2", "D"]).concat(this.permY).concat(["D'", "F2"]);
                 }
                 this.piecesTab = movement.moveCornerOP(this.piecesTab, 3, orientation);
                 break;
@@ -206,9 +206,9 @@ class AutoSolve {
                 if (orientation === 0) {
                     this.movesToSolve = this.movesToSolve.concat(["F'"]).concat(this.permY).concat(["F"]);
                 } else if (orientation === 1) {
-                    this.movesToSolve = this.movesToSolve.concat(["D"]).concat(this.permY).concat(["D'"]);
-                } else {
                     this.movesToSolve = this.movesToSolve.concat(["D2", "R"]).concat(this.permY).concat(["R'", "D2"]);
+                } else {
+                    this.movesToSolve = this.movesToSolve.concat(["D"]).concat(this.permY).concat(["D'"]);
                 }
                 this.piecesTab = movement.moveCornerOP(this.piecesTab, 4, orientation);
                 break;
@@ -217,9 +217,9 @@ class AutoSolve {
                 if (orientation === 0) {
                     this.movesToSolve = this.movesToSolve.concat(["D", "F'"]).concat(this.permY).concat(["F", "D'"]);
                 } else if (orientation === 1) {
-                    this.movesToSolve = this.movesToSolve.concat(["D2"]).concat(this.permY).concat(["D2"]);
-                } else {
                     this.movesToSolve = this.movesToSolve.concat(["D'", "R"]).concat(this.permY).concat(["R'", "D"]);
+                } else {
+                    this.movesToSolve = this.movesToSolve.concat(["D2"]).concat(this.permY).concat(["D2"]);
                 }
                 this.piecesTab = movement.moveCornerOP(this.piecesTab, 5, orientation);
                 break;
@@ -228,9 +228,9 @@ class AutoSolve {
                 if (orientation === 0) {
                     this.movesToSolve = this.movesToSolve.concat(["D2", "F'"]).concat(this.permY).concat(["F", "D2"]);
                 } else if (orientation === 1) {
-                    this.movesToSolve = this.movesToSolve.concat(["D'"]).concat(this.permY).concat(["D"]);
-                } else {
                     this.movesToSolve = this.movesToSolve.concat(["R"]).concat(this.permY).concat(["R'"]);
+                } else {
+                    this.movesToSolve = this.movesToSolve.concat(["D'"]).concat(this.permY).concat(["D"]);
                 }
                 this.piecesTab = movement.moveCornerOP(this.piecesTab, 6, orientation);
                 break;
@@ -239,9 +239,9 @@ class AutoSolve {
                 if (orientation === 0) {
                     this.movesToSolve = this.movesToSolve.concat(["D'", "F'"]).concat(this.permY).concat(["F", "D"]);
                 } else if (orientation === 1) {
-                    this.movesToSolve = this.movesToSolve.concat(this.permY);
-                } else {
                     this.movesToSolve = this.movesToSolve.concat(["F", "D"]).concat(this.permY).concat(["D'", "F'"]);
+                } else {
+                    this.movesToSolve = this.movesToSolve.concat(this.permY);
                 }
                 this.piecesTab = movement.moveCornerOP(this.piecesTab, 7, orientation);
                 break;
