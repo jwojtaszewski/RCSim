@@ -694,7 +694,7 @@ class Movement {
         return pieces;
     }
 
-    movePiece(pieces, pieceToChange) {
+    moveEdgeOP(pieces, pieceToChange, changeOrientation = 1) {
         let tab = [];
 
         tab[0] = pieces.corners[2];
@@ -705,6 +705,28 @@ class Movement {
         pieces.edges[3] = pieces.edges[pieceToChange];
         pieces.edges[pieceToChange] = tab[1];
 
+        if (changeOrientation === 1) {
+            pieces.edges[3].orientation = (pieces.edges[3].orientation + 1) % 2
+            pieces.edges[pieceToChange].orientation = (pieces.edges[pieceToChange].orientation + 1) % 2
+        }
+        return pieces;
+    }
+
+    moveCornerOP(pieces, pieceToChange, changeOrientation = 1) {
+        let tab = [];
+
+        tab[0] = pieces.corners[1];
+        pieces.corners[1] = pieces.corners[pieceToChange];
+        pieces.corners[pieceToChange] = tab[0];
+
+        tab[1] = pieces.edges[1];
+        pieces.edges[1] = pieces.edges[2];
+        pieces.edges[2] = tab[1];
+
+        // if (changeOrientation === 1) {
+        //     pieces.corners[1].orientation = (pieces.corners[1].orientation + 1) % 3
+        //     pieces.corners[pieceToChange].orientation = (pieces.corners[pieceToChange].orientation + 1) % 3
+        // }
         return pieces;
     }
 }

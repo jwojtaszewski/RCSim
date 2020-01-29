@@ -2,6 +2,9 @@
   const WIDTH = 600;
   const HEIGHT = 600;
 
+  const MOVEMENT_SPEED = 2;
+  const ROTATION_SPEED = 2;
+
   // Set some camera attributes.
   const VIEW_ANGLE = 45;
   const ASPECT = WIDTH / HEIGHT;
@@ -225,7 +228,7 @@
               i++
               isMove = true;
               console.log(i);
-              if (i % 6 !== 0) group.rotation.y -= Math.PI / 10;
+              if (i % MOVEMENT_SPEED !== 0) group.rotation.y -= Math.PI / ROTATION_SPEED;
               else {
                   group.rotation.y += Math.PI / 2
                   movement.doUMove(piecesTable)
@@ -240,7 +243,7 @@
           case 'U\'':
               i++
               isMove = true;
-              if (i % 6 !== 0) group.rotation.y += Math.PI / 10;
+              if (i % MOVEMENT_SPEED !== 0) group.rotation.y += Math.PI / ROTATION_SPEED;
               else {
                   group.rotation.y -= Math.PI / 2
                   movement.doUPrimeMove(piecesTable)
@@ -255,7 +258,7 @@
           case 'U2':
               i++
               isMove = true;
-              if (i % 11 !== 0) group.rotation.y += Math.PI / 10;
+              if (i % ((MOVEMENT_SPEED * 2) - 1) !== 0) group.rotation.y += Math.PI / ROTATION_SPEED;
               else {
                   group.rotation.y -= Math.PI
                   movement.doU2Move(piecesTable)
@@ -270,7 +273,7 @@
           case 'R':
               i++
               isMove = true;
-              if (i % 6 !== 0) group.rotation.x -= Math.PI / 10;
+              if (i % MOVEMENT_SPEED !== 0) group.rotation.x -= Math.PI / ROTATION_SPEED;
               else {
                   group.rotation.x += Math.PI / 2
                   movement.doRMove(piecesTable)
@@ -285,7 +288,7 @@
           case 'R\'':
               i++
               isMove = true;
-              if (i % 6 !== 0) group.rotation.x += Math.PI / 10;
+              if (i % MOVEMENT_SPEED !== 0) group.rotation.x += Math.PI / ROTATION_SPEED;
               else {
                   group.rotation.x -= Math.PI / 2
                   movement.doRPrimeMove(piecesTable)
@@ -300,7 +303,7 @@
           case 'R2':
               i++
               isMove = true;
-              if (i % 11 !== 0) group.rotation.x -= Math.PI / 10;
+              if (i % ((MOVEMENT_SPEED * 2) - 1) !== 0) group.rotation.x -= Math.PI / ROTATION_SPEED;
               else {
                   group.rotation.x += Math.PI
                   movement.doR2Move(piecesTable)
@@ -315,7 +318,7 @@
           case 'L':
               i++
               isMove = true;
-              if (i % 6 !== 0) group.rotation.x += Math.PI / 10;
+              if (i % MOVEMENT_SPEED !== 0) group.rotation.x += Math.PI / ROTATION_SPEED;
               else {
                   group.rotation.x -= Math.PI / 2
                   movement.doLMove(piecesTable)
@@ -330,7 +333,7 @@
           case 'L\'':
               i++
               isMove = true;
-              if (i % 6 !== 0) group.rotation.x -= Math.PI / 10;
+              if (i % MOVEMENT_SPEED !== 0) group.rotation.x -= Math.PI / ROTATION_SPEED;
               else {
                   group.rotation.x += Math.PI / 2
                   movement.doLPrimeMove(piecesTable)
@@ -345,7 +348,7 @@
           case 'L2':
               i++
               isMove = true;
-              if (i % 11 !== 0) group.rotation.x += Math.PI / 10;
+              if (i % ((MOVEMENT_SPEED * 2) - 1) !== 0) group.rotation.x += Math.PI / ROTATION_SPEED;
               else {
                   group.rotation.x -= Math.PI
                   movement.doL2Move(piecesTable)
@@ -360,7 +363,7 @@
           case 'F':
               i++
               isMove = true;
-              if (i % 6 !== 0) group.rotation.z -= Math.PI / 10;
+              if (i % MOVEMENT_SPEED !== 0) group.rotation.z -= Math.PI / ROTATION_SPEED;
               else {
                   group.rotation.z += Math.PI / 2
                   movement.doFMove(piecesTable)
@@ -375,7 +378,7 @@
           case 'F\'':
               i++
               isMove = true;
-              if (i % 6 !== 0) group.rotation.z += Math.PI / 10;
+              if (i % MOVEMENT_SPEED !== 0) group.rotation.z += Math.PI / ROTATION_SPEED;
               else {
                   group.rotation.z -= Math.PI / 2
                   movement.doFPrimeMove(piecesTable)
@@ -390,7 +393,7 @@
           case 'F2':
               i++
               isMove = true;
-              if (i % 11 !== 0) group.rotation.z -= Math.PI / 10;
+              if (i % ((MOVEMENT_SPEED * 2) - 1) !== 0) group.rotation.z -= Math.PI / ROTATION_SPEED;
               else {
                   group.rotation.z += Math.PI
                   movement.doF2Move(piecesTable)
@@ -405,7 +408,7 @@
           case 'D':
               i++
               isMove = true;
-              if (i % 6 !== 0) group.rotation.y += Math.PI / 10;
+              if (i % MOVEMENT_SPEED !== 0) group.rotation.y += Math.PI / ROTATION_SPEED;
               else {
                   group.rotation.y -= Math.PI / 2
                   movement.doDMove(piecesTable)
@@ -420,7 +423,7 @@
           case 'D\'':
               i++
               isMove = true;
-              if (i % 6 !== 0) group.rotation.y -= Math.PI / 10;
+              if (i % MOVEMENT_SPEED !== 0) group.rotation.y -= Math.PI / ROTATION_SPEED;
               else {
                   group.rotation.y += Math.PI / 2
                   movement.doDPrimeMove(piecesTable)
@@ -435,7 +438,7 @@
           case 'D2':
               i++
               isMove = true;
-              if (i % 11 !== 0) group.rotation.y += Math.PI / 10;
+              if (i % ((MOVEMENT_SPEED * 2) - 1) !== 0) group.rotation.y += Math.PI / ROTATION_SPEED;
               else {
                   group.rotation.y -= Math.PI
                   movement.doD2Move(piecesTable)
@@ -450,7 +453,7 @@
           case 'B':
               i++
               isMove = true;
-              if (i % 6 !== 0) group.rotation.z += Math.PI / 10;
+              if (i % MOVEMENT_SPEED !== 0) group.rotation.z += Math.PI / ROTATION_SPEED;
               else {
                   group.rotation.z -= Math.PI / 2
                   movement.doBMove(piecesTable)
@@ -465,7 +468,7 @@
           case 'B\'':
               i++
               isMove = true;
-              if (i % 6 !== 0) group.rotation.z -= Math.PI / 10;
+              if (i % MOVEMENT_SPEED !== 0) group.rotation.z -= Math.PI / ROTATION_SPEED;
               else {
                   group.rotation.z += Math.PI / 2
                   movement.doBPrimeMove(piecesTable)
@@ -480,7 +483,7 @@
           case 'B2':
               i++
               isMove = true;
-              if (i % 11 !== 0) group.rotation.z += Math.PI / 10;
+              if (i % ((MOVEMENT_SPEED * 2) - 1) !== 0) group.rotation.z += Math.PI / ROTATION_SPEED;
               else {
                   group.rotation.z -= Math.PI
                   movement.doB2Move(piecesTable)
@@ -495,7 +498,7 @@
           case 'E':
               i++
               isMove = true;
-              if (i % 6 !== 0) group.rotation.y += Math.PI / 10;
+              if (i % MOVEMENT_SPEED !== 0) group.rotation.y += Math.PI / ROTATION_SPEED;
               else {
                   group.rotation.y -= Math.PI / 2
                   movement.doEMove(piecesTable)
@@ -510,7 +513,7 @@
           case 'E\'':
               i++
               isMove = true;
-              if (i % 6 !== 0) group.rotation.y -= Math.PI / 10;
+              if (i % MOVEMENT_SPEED !== 0) group.rotation.y -= Math.PI / ROTATION_SPEED;
               else {
                   group.rotation.y += Math.PI / 2
                   movement.doEPrimeMove(piecesTable)
@@ -525,7 +528,7 @@
           case 'E2':
               i++
               isMove = true;
-              if (i % 11 !== 0) group.rotation.y -= Math.PI / 10;
+              if (i % ((MOVEMENT_SPEED * 2) - 1) !== 0) group.rotation.y -= Math.PI / ROTATION_SPEED;
               else {
                   group.rotation.y += Math.PI
                   movement.doE2Move(piecesTable)
@@ -540,7 +543,7 @@
           case 'M':
               i++
               isMove = true;
-              if (i % 6 !== 0) group.rotation.x -= Math.PI / 10;
+              if (i % MOVEMENT_SPEED !== 0) group.rotation.x -= Math.PI / ROTATION_SPEED;
               else {
                   group.rotation.x += Math.PI / 2
                   movement.doMMove(piecesTable)
@@ -555,7 +558,7 @@
           case 'M\'':
               i++
               isMove = true;
-              if (i % 11 !== 0) group.rotation.x -= Math.PI / 10;
+              if (i % ((MOVEMENT_SPEED * 2) - 1) !== 0) group.rotation.x -= Math.PI / ROTATION_SPEED;
               else {
                   group.rotation.x += Math.PI
                   movement.doMPrimeMove(piecesTable)
@@ -570,7 +573,7 @@
           case 'X':
               i++
               isMove = true;
-              if (i % 6 !== 0) group.rotation.x -= Math.PI / 10;
+              if (i % MOVEMENT_SPEED !== 0) group.rotation.x -= Math.PI / ROTATION_SPEED;
               else {
                   group.rotation.x += Math.PI / 2
                   movement.doXRotate(piecesTable)
@@ -586,7 +589,7 @@
           case 'X\'':
               i++
               isMove = true;
-              if (i % 6 !== 0) group.rotation.x += Math.PI / 10;
+              if (i % MOVEMENT_SPEED !== 0) group.rotation.x += Math.PI / ROTATION_SPEED;
               else {
                   group.rotation.x -= Math.PI / 2
                   movement.doXPrimeRotate(piecesTable)
@@ -602,7 +605,7 @@
           case 'Y':
               i++
               isMove = true;
-              if (i % 6 !== 0) group.rotation.y -= Math.PI / 10;
+              if (i % MOVEMENT_SPEED !== 0) group.rotation.y -= Math.PI / ROTATION_SPEED;
               else {
                   group.rotation.y += Math.PI / 2
                   movement.doYRotate(piecesTable)
@@ -618,7 +621,7 @@
           case 'Y\'':
               i++
               isMove = true;
-              if (i % 6 !== 0) group.rotation.y += Math.PI / 10;
+              if (i % MOVEMENT_SPEED !== 0) group.rotation.y += Math.PI / ROTATION_SPEED;
               else {
                   group.rotation.y -= Math.PI / 2
                   movement.doYPrimeRotate(piecesTable)
