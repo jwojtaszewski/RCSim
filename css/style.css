@@ -380,6 +380,14 @@ header .profile__logout:hover {
   background-color: gold;
 }
 
+.mainSection .mainContentSection .animationLabel {
+  position: relative;
+  font-size: 1rem;
+  color: #8c8c8c;
+  left: 40px;
+  top: 28px;
+}
+
 .mainSection .mainContentSection .themeSwitch[type=checkbox] {
   height: 0;
   width: 0;
@@ -406,6 +414,7 @@ header .profile__logout:hover {
   border-radius: 100px;
   position: relative;
   margin-left: 40px;
+  margin-top: 30px;
 }
 
 .mainSection .mainContentSection label:after {
@@ -644,6 +653,7 @@ header .profile__logout:hover {
   padding: 15px;
   background-color: #1a1a1a;
   border: 1px solid #8c8c8c;
+  color: white;
 }
 
 .loginContainer form :nth-child(1):hover {
@@ -659,6 +669,7 @@ header .profile__logout:hover {
   padding: 15px;
   background-color: #1a1a1a;
   border: 1px solid #8c8c8c;
+  color: white;
 }
 
 .loginContainer form :nth-child(2):hover {

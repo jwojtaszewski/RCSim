@@ -2,8 +2,8 @@
   const WIDTH = 600;
   const HEIGHT = 600;
 
-  const MOVEMENT_SPEED = 5;
-  const ROTATION_SPEED = 8;
+  let MOVEMENT_SPEED = 6;
+  let ROTATION_SPEED = 10;
 
   // Set some camera attributes.
   const VIEW_ANGLE = 45;

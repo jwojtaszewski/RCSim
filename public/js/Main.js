@@ -11,6 +11,7 @@ class Main {
 
         this.isInspection = false;
         this.isTimeRun = false;
+        this.isAnimationOn = true;
         this.stats = new StatsGetSet();
         this.statsCalc = new StatsCalc();
         this.timer = new Timer(this.display);
@@ -104,6 +105,20 @@ class Main {
         this.solveButton.addEventListener("click", () => {
             solveAutomatically();
         });
+
+        this.themeSwitch.addEventListener("change", () => {
+            if (!this.isAnimationOn) {
+                MOVEMENT_SPEED = 5;
+                ROTATION_SPEED = 8;
+                this.isAnimationOn = true;
+                console.log('faster');
+            } else {
+                MOVEMENT_SPEED = 2;
+                ROTATION_SPEED = 2;
+                this.isAnimationOn = false;
+                console.log('slower');
+            }
+        })
     }
 
     solveCube() {
