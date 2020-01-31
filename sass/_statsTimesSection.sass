@@ -2,7 +2,8 @@
     position: absolute
     height: calc(100vh - 70px)
     right: 0
-    background-color: #fff
+    background-color: $BASE_COLOR
+    color: $FONT_COLOR
     width: 500px
     display: flex
     flex-direction: column
@@ -18,7 +19,7 @@
         left: -10px
         width: 1px
         height: calc(100% - 70px)
-        background-color: black
+        background-color: $FONT_COLOR
     .statsTable
         font-size: 18px
         flex-basis: 250px
@@ -37,15 +38,16 @@
         overflow: hidden
         .resetButton
             position: relative
-            border: 1px solid black
+            border: 1px solid $FONT_COLOR
             background: none
+            color: $FONT_COLOR
             left: 8px
             width: 100px
             height: 20px
             cursor: pointer
             transition: .1s
             &:hover
-                background-color: #000000
+                border: 1px solid white
                 color: white
         .timesContainer
             position: relative
@@ -63,8 +65,8 @@
                 padding: 0 5px
                 font-weight: 600
                 font-size: 18px
-                background-color: #00cc99
-                color: black
+                background-color: $TIME_COLOR
+                color: #005e46
                 line-height: 30px
                 text-align: center
                 cursor: pointer

@@ -726,7 +726,7 @@ class Movement {
         if (changeOrientation === 1) {
             pieces.corners[1].orientation = (pieces.corners[1].orientation + 1) % 3
             pieces.corners[pieceToChange].orientation = (pieces.corners[pieceToChange].orientation + 2) % 3
-        }else if (changeOrientation === 2){
+        } else if (changeOrientation === 2) {
             pieces.corners[1].orientation = (pieces.corners[1].orientation + 2) % 3
             pieces.corners[pieceToChange].orientation = (pieces.corners[pieceToChange].orientation + 1) % 3
         }

@@ -21,6 +21,7 @@ class AutoSolve {
         do {
             this.edgeToSolve = this.checkEdgesOrder();
             this.edgeToSolve !== null ? this.doEdgeCycle(this.edgeToSolve) : null;
+            console.log(this.movesToSolve)
         } while (!this.areEdgesSolved)
 
         do {
@@ -53,7 +54,7 @@ class AutoSolve {
         let returnEdge = null;
         this.areEdgesSolved = true;
         for (let i = 0; i < this.piecesTab.edges.length; i++) {
-            if ((this.piecesTab.edges[i].cube.object.name !== this.edgesOrder[i]) || (this.piecesTab.edges[i].orientation !== 0)) {
+            if ((this.piecesTab.edges[i].cube.object.name !== this.edgesOrder[i]) || (this.piecesTab.edges[i].orientation !== 0 && i !== 3)) {
                 this.areEdgesSolved = false;
                 returnEdge = this.piecesTab.edges[i];
                 break;
@@ -66,7 +67,7 @@ class AutoSolve {
         let returnCorner = null;
         this.areCornersSolved = true;
         for (let i = 0; i < this.piecesTab.corners.length; i++) {
-            if ((this.piecesTab.corners[i].cube.object.name !== this.cornersOrder[i])) {
+            if ((this.piecesTab.corners[i].cube.object.name !== this.cornersOrder[i]) || (this.piecesTab.corners[i].orientation !== 0 && i !== 1)) {
                 this.areCornersSolved = false;
                 returnCorner = this.piecesTab.corners[i];
             }

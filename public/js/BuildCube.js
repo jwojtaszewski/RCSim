@@ -6,12 +6,12 @@ class BuildCube {
 
         const buildPiece = new BuildPiece();
         this.corUBL = {
-            cube: buildPiece.makeCorner(["blue", "black", "red"], 'UBL'),
+            cube: buildPiece.makeCorner(["blue", "#f2f2f2", "red"], 'UBL'),
             orientation: 0
         };
 
         this.corUBR = {
-            cube: buildPiece.makeCorner(["red", "black", "#00cc00"], 'UBR'),
+            cube: buildPiece.makeCorner(["red", "#f2f2f2", "#00cc00"], 'UBR'),
             orientation: 0
         }
         this.corDBL = {
@@ -24,12 +24,12 @@ class BuildCube {
             orientation: 0
         }
         this.corUFL = {
-            cube: buildPiece.makeCorner(["orange", "black", "blue"], 'UFL'),
+            cube: buildPiece.makeCorner(["orange", "#f2f2f2", "blue"], 'UFL'),
             orientation: 0
         };
 
         this.corUFR = {
-            cube: buildPiece.makeCorner(["#00cc00", "black", "orange"], 'UFR'),
+            cube: buildPiece.makeCorner(["#00cc00", "#f2f2f2", "orange"], 'UFR'),
             orientation: 0
         }
         this.corDFL = {
@@ -43,21 +43,21 @@ class BuildCube {
         }
         //--------------------------------------------------------------------------------edges
         this.edgeUF = {
-            cube: buildPiece.makeEdge(["black", "orange"], 'UF'),
+            cube: buildPiece.makeEdge(["#f2f2f2", "orange"], 'UF'),
             orientation: 0
         };
 
         this.edgeUL = {
-            cube: buildPiece.makeEdge(["blue", "black"], 'UL'),
+            cube: buildPiece.makeEdge(["blue", "#f2f2f2"], 'UL'),
             orientation: 0
         }
         this.edgeUB = {
-            cube: buildPiece.makeEdge(["red", "black"], 'UB'),
+            cube: buildPiece.makeEdge(["red", "#f2f2f2"], 'UB'),
             orientation: 0
         };
 
         this.edgeUR = {
-            cube: buildPiece.makeEdge(["#00cc00", "black"], 'UR'),
+            cube: buildPiece.makeEdge(["#00cc00", "#f2f2f2"], 'UR'),
             orientation: 0
         }
         this.edgeFR = {
@@ -100,7 +100,7 @@ class BuildCube {
 
         //--------------------------------------------------------centers
 
-        this.centerU = buildPiece.makeCenter("black", 'U');
+        this.centerU = buildPiece.makeCenter("#f2f2f2", 'U');
         this.centerF = buildPiece.makeCenter("orange", 'F');
         this.centerL = buildPiece.makeCenter("blue", 'L');
         this.centerB = buildPiece.makeCenter("red", 'B');

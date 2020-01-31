@@ -7,6 +7,7 @@ class Main {
         this.statsText = document.querySelectorAll(".mainStats span");
         this.scramble = document.querySelector(".src");
         this.solveButton = document.querySelector(".autoSolve");
+        this.themeSwitch = document.querySelector(".themeSwitch");
 
         this.isInspection = false;
         this.isTimeRun = false;
@@ -27,7 +28,7 @@ class Main {
             });
 
             window.addEventListener("keydown", (e) => { //stop czas
-                this.display.style.color = "gold";
+                this.display.style.color = "#f65555";
                 if (e.keyCode == "32" && this.timer.getI() == 2) {
                     this.timer.stop();
                     this.updateTimes.saveTime(this.timer.getTime());
@@ -52,6 +53,7 @@ class Main {
                 }
 
                 if (this.startKeysArray.includes(e.keyCode) && this.isInspection) {
+                    this.display.style.color = "#f65555";
                     this.timer.start();
                     this.isInspection = false;
                     this.isTimeRun = true;
@@ -100,7 +102,7 @@ class Main {
         });
 
         this.solveButton.addEventListener("click", () => {
-            autoSolve();
+            solveAutomatically();
         });
     }
 

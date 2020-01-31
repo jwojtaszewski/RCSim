@@ -81,7 +81,7 @@ class Timer {
             this.status = "stopped";
             // resetScramble();
             // generateScramble();
-            this.display.style.color = "black";
+            this.display.style.color = '#B99B00';
         }
     }
 

@@ -15,7 +15,7 @@
                 <form action="" method="GET">
                     <input type="submit" value="Cube" class="aboutBtn">
                 </form>
-                <form action="" method="GET">
+                <form action="timer" method="POST">
                     <input type="submit" value="timer" class="timesBtn">
                 </form>
             </div>
@@ -31,15 +31,16 @@
                     <input type="submit" value="logout" class="profile__logout">
                 </form>
                 <!-- <span class="profile__logout">logout</span> -->
-                <div class="profile__avatar"></div>
+                <img class="profile__avatar" src="/public/cubePics/goku.jpg"></img>
             </div>
         </header>
         <section class="mainSection">
             <section class="mainContentSection">
                 <span class="src">Press [space] to start</span>
-                <div class="display">00:00</div>
+                <div class="display" data-mode='solver'>00:00</div>
                 <div class="cubeContainer"></div>
-                <button class="autoSolve"></button>
+                <button class="autoSolve">Auto Solve</button>
+                <input type="checkbox" id="switch" /><label for="switch">Toggle</label>
             </section>
             <section class="statsTimesSection">
                 <div class="statsTable">
@@ -105,6 +106,7 @@
     <script src="public/js/BuildPiece.js"></script>
     <script src="public/js/Movement.js"></script>
     <script src="public/js/KeyControl.js"></script>
+    <script src="public/js/AutoSolve.js"></script>
     <script src="public/js/Scene.js"></script>
     <script>
         getFromDB = async () => {

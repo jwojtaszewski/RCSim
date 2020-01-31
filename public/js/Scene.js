@@ -2,8 +2,8 @@
   const WIDTH = 600;
   const HEIGHT = 600;
 
-  const MOVEMENT_SPEED = 2;
-  const ROTATION_SPEED = 2;
+  const MOVEMENT_SPEED = 5;
+  const ROTATION_SPEED = 8;
 
   // Set some camera attributes.
   const VIEW_ANGLE = 45;
@@ -151,11 +151,11 @@
   let i = 0;
 
   //------------------------------------------------ auto solve
-  autoSolve = () => {
+  solveAutomatically = () => {
       let tmpPieces = {};
       tmpPieces = JSON.parse(JSON.stringify(piecesTable))
-      autoSolve = new AutoSolve(tmpPieces);
-      moves = autoSolve.solveLoop();
+      const autoSolve = new AutoSolve(tmpPieces);
+      const moves = autoSolve.solveLoop();
       moves.forEach(el => {
           movesFifo.push(el);
       })
@@ -174,6 +174,7 @@
           group.add(piecesTable.edges[tab[5]].cube);
           group.add(piecesTable.edges[tab[6]].cube);
           group.add(piecesTable.edges[tab[7]].cube);
+          group.add(piecesTable.centers[tab[8]]);
           scene.add(group);
       } else {
           group.add(piecesTable.edges[tab[0]].cube);
@@ -194,6 +195,17 @@
       return group;
   }
 
+  doMoveOnArrayPieces = (move, rotationAngle, isDoubleMove) => {
+      group.rotation.y += Math.PI / 2
+      movement.doUMove(piecesTable)
+          .then(result => {
+              piecesTable = result;
+              isMove = false;
+              moveLetter = '';
+              i = 0;
+          })
+  }
+
   function update() {
       // Draw!
       renderer.render(scene, camera);
@@ -203,17 +215,17 @@
       if (movesFifo.length > 0 && !isMove) {
           moveLetter = movesFifo.shift();
           if (moveLetter === 'R' || moveLetter === 'R\'' || moveLetter === 'R2') {
-              group = addPiecesToGroup([2, 3, 6, 7, 3, 4, 7, 11]);
+              group = addPiecesToGroup([2, 3, 6, 7, 3, 4, 7, 11, 3]);
           } else if (moveLetter === 'U' || moveLetter === 'U\'' || moveLetter === 'U2') {
-              group = addPiecesToGroup([0, 3, 2, 1, 0, 3, 2, 1]);
+              group = addPiecesToGroup([0, 3, 2, 1, 0, 3, 2, 1, 0]);
           } else if (moveLetter === 'L' || moveLetter === 'L\'' || moveLetter === 'L2') {
-              group = addPiecesToGroup([0, 1, 5, 4, 1, 6, 9, 5]);
+              group = addPiecesToGroup([0, 1, 5, 4, 1, 6, 9, 5, 1]);
           } else if (moveLetter === 'F' || moveLetter === 'F\'' || moveLetter === 'F2') {
-              group = addPiecesToGroup([0, 4, 7, 3, 0, 5, 8, 4]);
+              group = addPiecesToGroup([0, 4, 7, 3, 0, 5, 8, 4, 4]);
           } else if (moveLetter === 'D' || moveLetter === 'D\'' || moveLetter === 'D2') {
-              group = addPiecesToGroup([4, 5, 6, 7, 8, 9, 10, 11]);
+              group = addPiecesToGroup([4, 5, 6, 7, 8, 9, 10, 11, 5]);
           } else if (moveLetter === 'B' || moveLetter === 'B\'' || moveLetter === 'B2') {
-              group = addPiecesToGroup([1, 2, 6, 5, 2, 7, 10, 6]);
+              group = addPiecesToGroup([1, 2, 6, 5, 2, 7, 10, 6, 2]);
           } else if (moveLetter === 'E' || moveLetter === 'E\'' || moveLetter === 'E2') {
               group = addPiecesToGroup([4, 5, 6, 7]);
           } else if (moveLetter === 'M' || moveLetter === 'M\'' || moveLetter === 'M2') {
